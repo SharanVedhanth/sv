@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Our Little World</title>
+
+<style>
+
+/* =========================
+   BASIC RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    font-family:Georgia, "Times New Roman", serif;
+    background:#000;
+    color:white;
+}
+
+
+/* =========================
+   PAGE SYSTEM
+========================= */
+
+.page{
+    position:absolute;
+    inset:0;
+    display:none;
+    overflow:hidden;
+}
+
+.page.active{
+    display:block;
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+#home{
+    background:#000;
+}
+
+.home-background{
+    position:absolute;
+    inset:0;
+
+    /* YOUR HOME BACKGROUND */
+    background-image:url("backgrounds/homeBG.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    z-index:0;
+}
+
+.home-overlay{
+    position:absolute;
+    inset:0;
+
+    background:rgba(0,0,0,.25);
+
+    z-index:1;
+}
+
+.home-content{
+    position:relative;
+    z-index:2;
+
+    width:100%;
+    height:100%;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    padding:30px;
+}
+
+.home-title{
+    font-size:clamp(38px,5vw,70px);
+    margin-bottom:12px;
+
+    text-shadow:
+        0 0 15px rgba(255,255,255,.4),
+        0 0 35px rgba(255,255,255,.15);
+}
+
+.home-subtitle{
+    font-size:18px;
+    opacity:.8;
+    margin-bottom:45px;
+}
+
+.home-cards{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:25px;
+
+    flex-wrap:wrap;
+}
+
+.home-card{
+    width:190px;
+    height:150px;
+
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:18px;
+
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(7px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+}
+
+.home-card:hover{
+    transform:translateY(-8px) scale(1.03);
+
+    background:rgba(255,255,255,.14);
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.4);
+}
+
+.home-card span{
+    font-size:24px;
+    letter-spacing:1px;
+}
+
+
+/* =========================
+   GALLERY
+========================= */
+
+#gallery{
+    background:#050714;
+}
+
+
+/* Gallery background */
+
+.gallery-background{
+    position:absolute;
+    inset:0;
+
+    background-image:url("backgrounds/gallery-bg.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    z-index:0;
+}
+
+
+/* Slight overlay */
+
+.gallery-overlay{
+    position:absolute;
+    inset:0;
+
+    background:rgba(4,6,18,.12);
+
+    z-index:1;
+}
+
+
+/* Gallery title */
+
+.gallery-title{
+    position:absolute;
+
+    top:18px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    z-index:10;
+
+    text-align:center;
+
+    font-size:clamp(28px,4vw,48px);
+
+    text-shadow:
+        0 0 15px rgba(255,255,255,.35);
+}
+
+.gallery-title small{
+    display:block;
+
+    font-size:13px;
+
+    opacity:.7;
+
+    margin-top:4px;
+
+    letter-spacing:2px;
+}
+
+
+/* =========================
+   WIRES
+========================= */
+
+.wire{
+    position:absolute;
+
+    height:2px;
+
+    background:rgba(255,255,255,.5);
+
+    transform-origin:left center;
+
+    z-index:2;
+
+    box-shadow:
+        0 0 5px rgba(255,255,255,.2);
+}
+
+.wire-1{
+    width:82%;
+    left:8%;
+    top:24%;
+    transform:rotate(-3deg);
+}
+
+.wire-2{
+    width:72%;
+    left:16%;
+    top:49%;
+    transform:rotate(2deg);
+}
+
+.wire-3{
+    width:78%;
+    left:9%;
+    top:73%;
+    transform:rotate(-2deg);
+}
+
+.wire-4{
+    width:60%;
+    left:22%;
+    top:88%;
+    transform:rotate(3deg);
+}
+
+
+/* =========================
+   BULBS
+========================= */
+
+.bulb{
+    position:absolute;
+
+    width:9px;
+    height:9px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    box-shadow:
+        0 0 7px #fff,
+        0 0 16px rgba(255,255,255,.8);
+
+    z-index:4;
+}
+
+.bulb-1{left:17%;top:22%;}
+.bulb-2{left:34%;top:25%;}
+.bulb-3{left:52%;top:22%;}
+.bulb-4{left:70%;top:25%;}
+
+.bulb-5{left:25%;top:47%;}
+.bulb-6{left:45%;top:50%;}
+.bulb-7{left:65%;top:48%;}
+.bulb-8{left:82%;top:50%;}
+
+.bulb-9{left:15%;top:71%;}
+.bulb-10{left:37%;top:74%;}
+.bulb-11{left:60%;top:72%;}
+.bulb-12{left:78%;top:74%;}
+
+
+/* =========================
+   PHOTO AREA
+========================= */
+
+.gallery-photo-area{
+    position:absolute;
+
+    left:0;
+    right:0;
+
+    top:70px;
+    bottom:15px;
+
+    z-index:5;
+}
+
+
+/* =========================
+   PHOTOS
+========================= */
+
+.photo-hanger{
+    position:absolute;
+
+    width:110px;
+
+    transform-origin:50% 0;
+
+    cursor:pointer;
+
+    transition:
+        transform .3s ease,
+        z-index .15s ease,
+        filter .3s ease;
+}
+
+.photo-hanger:hover{
+    z-index:50;
+
+    filter:brightness(1.12);
+
+    transform:
+        scale(1.08)
+        rotate(0deg) !important;
+}
+
+
+/* Photo itself */
+
+.photo{
+    width:100%;
+
+    aspect-ratio:1 / 1.08;
+
+    object-fit:cover;
+
+    display:block;
+
+    background:#eee;
+
+    border:6px solid #fff;
+
+    box-shadow:
+        0 7px 20px rgba(0,0,0,.55);
+
+    transition:box-shadow .3s ease;
+}
+
+
+/* Little hanging string */
+
+.photo-string{
+    position:absolute;
+
+    width:2px;
+    height:25px;
+
+    background:rgba(255,255,255,.7);
+
+    left:50%;
+    top:-25px;
+
+    transform:translateX(-50%);
+}
+
+
+/* Clip */
+
+.photo-clip{
+    position:absolute;
+
+    width:14px;
+    height:8px;
+
+    left:50%;
+    top:-4px;
+
+    transform:translateX(-50%);
+
+    border-radius:3px;
+
+    background:#c7c7c7;
+
+    box-shadow:0 1px 3px rgba(0,0,0,.5);
+
+    z-index:3;
+}
+
+
+/* =========================
+   NORMAL PHOTO POSITIONS
+========================= */
+
+/*
+   These are deliberately irregular.
+   They are NOT arranged into rows.
+*/
+
+.photo-1{
+    left:4%;
+    top:4%;
+    transform:rotate(-5deg);
+}
+
+.photo-2{
+    left:24%;
+    top:17%;
+    transform:rotate(4deg);
+}
+
+.photo-3{
+    left:43%;
+    top:3%;
+    transform:rotate(-3deg);
+}
+
+.photo-4{
+    right:5%;
+    top:15%;
+    transform:rotate(5deg);
+}
+
+.photo-5{
+    left:11%;
+    top:46%;
+    transform:rotate(3deg);
+}
+
+.photo-6{
+    left:31%;
+    top:38%;
+    transform:rotate(-5deg);
+}
+
+.photo-7{
+    right:29%;
+    top:49%;
+    transform:rotate(4deg);
+}
+
+.photo-8{
+    right:4%;
+    top:42%;
+    transform:rotate(-4deg);
+}
+
+.photo-9{
+    left:2%;
+    top:73%;
+    transform:rotate(5deg);
+}
+
+.photo-10{
+    left:25%;
+    top:69%;
+    transform:rotate(-4deg);
+}
+
+.photo-11{
+    left:51%;
+    top:72%;
+    transform:rotate(3deg);
+}
+
+.photo-12{
+    right:7%;
+    top:76%;
+    transform:rotate(-5deg);
+}
+
+
+/* =========================
+   BIGGER FAVORITE PHOTOS
+========================= */
+
+/*
+   CHANGE THESE CLASS NAMES
+   depending on which photos
+   you want to be bigger.
+*/
+
+
+/* Favorite photo 3 */
+
+.photo-big-1{
+    width:145px;
+}
+
+
+/* Favorite photo 7 */
+
+.photo-big-2{
+    width:155px;
+}
+
+
+/* Favorite photo 11 */
+
+.photo-big-3{
+    width:145px;
+}
+
+
+/*
+   Slightly adjust their positions
+   because they're bigger.
+*/
+
+.photo-3.photo-big-1{
+    left:39%;
+    top:2%;
+}
+
+.photo-7.photo-big-2{
+    right:25%;
+    top:43%;
+}
+
+.photo-11.photo-big-3{
+    left:48%;
+    top:68%;
+}
+
+
+/* =========================
+   PHOTO VIEWER
+========================= */
+
+.photo-viewer{
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.92);
+
+    z-index:100;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    padding:30px;
+
+    cursor:pointer;
+}
+
+.photo-viewer.active{
+    display:flex;
+}
+
+.photo-viewer img{
+    max-width:90vw;
+    max-height:90vh;
+
+    object-fit:contain;
+
+    border:6px solid white;
+
+    box-shadow:
+        0 0 40px rgba(0,0,0,.8);
+}
+
+
+/* =========================
+   WORDS
+========================= */
+
+#words{
+    background:#111;
+}
+
+.words-content{
+    width:min(900px,90vw);
+
+    height:100%;
+
+    margin:auto;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+}
+
+.words-content h1{
+    font-size:50px;
+}
+
+
+/* =========================
+   US
+========================= */
+
+#us{
+    background:#111;
+}
+
+.us-content{
+    width:100%;
+    height:100%;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+}
+
+.us-content h1{
+    font-size:50px;
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-button{
+    position:fixed;
+
+    top:20px;
+    left:20px;
+
+    z-index:200;
+
+    padding:10px 17px;
+
+    border:1px solid rgba(255,255,255,.4);
+
+    border-radius:20px;
+
+    background:rgba(0,0,0,.35);
+
+    color:white;
+
+    font-family:inherit;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(5px);
+
+    transition:.25s ease;
+}
+
+.back-button:hover{
+    background:rgba(255,255,255,.15);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+    .home-cards{
+        gap:12px;
+    }
+
+    .home-card{
+        width:145px;
+        height:110px;
+    }
+
+    .home-card span{
+        font-size:19px;
+    }
+
+    .photo-hanger{
+        width:72px;
+    }
+
+    .photo-big-1{
+        width:94px;
+    }
+
+    .photo-big-2{
+        width:100px;
+    }
+
+    .photo-big-3{
+        width:94px;
+    }
+
+    .gallery-title{
+        top:15px;
+    }
+
+    .gallery-photo-area{
+        top:65px;
+    }
+
+}
+
+
+/* =========================
+   VERY SMALL SCREENS
+========================= */
+
+@media(max-width:450px){
+
+    .photo-hanger{
+        width:60px;
+    }
+
+    .photo-big-1{
+        width:78px;
+    }
+
+    .photo-big-2{
+        width:84px;
+    }
+
+    .photo-big-3{
+        width:78px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section id="home" class="page active">
+
+    <div class="home-background"></div>
+
+    <div class="home-overlay"></div>
+
+    <div class="home-content">
+
+        <h1 class="home-title">
+            Our Little World
+        </h1>
+
+        <p class="home-subtitle">
+            A little place made just for us
+        </p>
+
+
+        <div class="home-cards">
+
+            <div class="home-card"
+                 onclick="showPage('gallery')">
+                <span>Gallery</span>
+            </div>
+
+
+            <div class="home-card"
+                 onclick="showPage('words')">
+                <span>Words</span>
+            </div>
+
+
+            <div class="home-card"
+                 onclick="showPage('us')">
+                <span>Us</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     GALLERY
+===================================================== -->
+
+<section id="gallery" class="page">
+
+    <div class="gallery-background"></div>
+
+    <div class="gallery-overlay"></div>
+
+
+    <button
+        class="back-button"
+        onclick="showPage('home')">
+        ← Home
+    </button>
+
+
+    <h1 class="gallery-title">
+
+        Our Memories
+
+        <small>
+            little moments
+        </small>
+
+    </h1>
+
+
+    <!-- WIRES -->
+
+    <div class="wire wire-1"></div>
+    <div class="wire wire-2"></div>
+    <div class="wire wire-3"></div>
+    <div class="wire wire-4"></div>
+
+
+    <!-- BULBS -->
+
+    <div class="bulb bulb-1"></div>
+    <div class="bulb bulb-2"></div>
+    <div class="bulb bulb-3"></div>
+    <div class="bulb bulb-4"></div>
+
+    <div class="bulb bulb-5"></div>
+    <div class="bulb bulb-6"></div>
+    <div class="bulb bulb-7"></div>
+    <div class="bulb bulb-8"></div>
+
+    <div class="bulb bulb-9"></div>
+    <div class="bulb bulb-10"></div>
+    <div class="bulb bulb-11"></div>
+    <div class="bulb bulb-12"></div>
+
+
+    <!-- PHOTO AREA -->
+
+    <div class="gallery-photo-area">
+
+
+        <!-- PHOTO 1 -->
+
+        <div
+            class="photo-hanger photo-1"
+            onclick="openPhoto('photos/1.jpeg')">
+
+            <div class="photo-string"></div>
+            <div class="photo-clip"></div>
+
+            <img
+                class="photo"
+                src="photos/1.jpeg"
+                alt="Memory 1">
+
+        </div>
+
+
+
+        <!-- PHOTO 2 -->
+
+        <div
+            class="photo-hanger photo-2"
+            onclick="openPhoto('photos/2.jpeg')">
+
+            <div class="photo-string"></div>
+            <div class="photo-clip"></div>
+
+            <img
+                class="photo"
+                src="photos/2.jpeg"
+                alt="Memory 2">
+
+        </div>
+
+
+
+        <!-- PHOTO 3 — BIG FAVORITE -->
+
+        <div
+            class="photo-hanger photo-3 photo-big-1"
+            onclick="openPhoto('photos/3.jpeg')">
+
+            <div class="photo-string"></div>
+            <div class="photo-clip"></div>
+
+            <img
+                class="photo"
+                src="photos/3.jpeg"
+                alt="Memory 3">
+
+        </div>
+
+
+
+        <!-- PHOTO 4 -->
+
+        <div
+            class="photo-hanger photo-4"
+            onclick="openPhoto('photos/4.jpeg')">
+
+            <div class="photo-string"></div>
+            <div class="photo-clip"></div>
+
+            <img
+                class="photo"
+                src="photos/4.jpeg"
+                alt="Memory 4">
+
+        </div>
+
+
+
+        <!-- PHOTO 5 -->
+
+        <div
+            class="photo-hanger photo-5"
+            onclick="openPhoto('photos/5.jpeg')">
+
+            <div class="photo-string"></div>
+            <div class="photo-clip"></div>
+
+            <img
+                class="photo"
+                src="photos/5.jpeg"
+                alt="Memory 5">
+
+        </div>
+
+
+
+        <!-- PHOTO 6 -->
+
+        <div
+            class="photo-hanger photo-6"
+            onclick="openPhoto('photos/6.jpeg')">
+
+            <div class="photo-string"></div>
+            <div class="photo-clip"></div>
+
+            <img
+                class="photo"
+                src="photos/6.jpeg"
+                alt="Memory 6">
+
+        </div>
+
+
+
+        <!-- PHOTO 7 — BIG FAVORITE -->
+
+        <div
+            class="photo-hanger photo-7 photo-big-2"
+            onclick="openPhoto('photos/7.jpeg')">
+
+            <div class="photo-string"></div>
+            <div class="photo-clip"></div>
+
+            <img
+                class="photo"
+                src="photos/7.jpeg"
+                alt="Memory 7">
+
+        </div>
+
+
+
+        <!-- PHOTO 8 -->
+
+        <div
+            class="photo-hanger photo-8"
+            onclick="openPhoto('photos/8.jpeg')">
+
+            <div class="photo-string"></div>
+            <div class="photo-clip"></div>
+
+            <img
+                class="photo"
+                src="photos/8.jpeg"
+                alt="Memory 8">
+
+        </div>
+
+
+
+        <!-- PHOTO 9 -->
+
+        <div
+            class="photo-hanger photo-9"
+            onclick="openPhoto('photos/9.jpeg')">
+
+            <div class="photo-string"></div>
+            <div class="photo-clip"></div>
+
+            <img
+                class="photo"
+                src="photos/9.jpeg"
+                alt="Memory 9">
+
+        </div>
+
+
+
+        <!-- PHOTO 10 -->
+
+        <div
+            class="photo-hanger photo-10"
+            onclick="openPhoto('photos/10.jpeg')">
+
+            <div class="photo-string"></div>
+            <div class="photo-clip"></div>
+
+            <img
+                class="photo"
+                src="photos/10.jpeg"
+                alt="Memory 10">
+
+        </div>
+
+
+
+        <!-- PHOTO 11 — BIG FAVORITE -->
+
+        <div
+            class="photo-hanger photo-11 photo-big-3"
+            onclick="openPhoto('photos/11.jpeg')">
+
+            <div class="photo-string"></div>
+            <div class="photo-clip"></div>
+
+            <img
+                class="photo"
+                src="photos/11.jpeg"
+                alt="Memory 11">
+
+        </div>
+
+
+
+        <!-- PHOTO 12 -->
+
+        <div
+            class="photo-hanger photo-12"
+            onclick="openPhoto('photos/12.jpeg')">
+
+            <div class="photo-string"></div>
+            <div class="photo-clip"></div>
+
+            <img
+                class="photo"
+                src="photos/12.jpeg"
+                alt="Memory 12">
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     WORDS
+===================================================== -->
+
+<section id="words" class="page">
+
+    <button
+        class="back-button"
+        onclick="showPage('home')">
+        ← Home
+    </button>
+
+    <div class="words-content">
+
+        <h1>
+            Words
+        </h1>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     US
+===================================================== -->
+
+<section id="us" class="page">
+
+    <button
+        class="back-button"
+        onclick="showPage('home')">
+        ← Home
+    </button>
+
+    <div class="us-content">
+
+        <h1>
+            Us
+        </h1>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FULLSCREEN PHOTO VIEWER
+===================================================== -->
+
+<div
+    id="photoViewer"
+    class="photo-viewer"
+    onclick="closePhoto()">
+
+    <img
+        id="viewerImage"
+        src=""
+        alt="Full size memory">
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+function showPage(page){
+
+    document
+        .querySelectorAll('.page')
+        .forEach(p => {
+            p.classList.remove('active');
+        });
+
+    const selected =
+        document.getElementById(page);
+
+    if(selected){
+        selected.classList.add('active');
+    }
+}
+
+
+function openPhoto(src){
+
+    const viewer =
+        document.getElementById('photoViewer');
+
+    const image =
+        document.getElementById('viewerImage');
+
+    image.src = src;
+
+    viewer.classList.add('active');
+}
+
+
+function closePhoto(){
+
+    document
+        .getElementById('photoViewer')
+        .classList.remove('active');
+
+}
+
+
+document.addEventListener(
+    'keydown',
+    function(event){
+
+        if(event.key === 'Escape'){
+            closePhoto();
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
