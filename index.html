@@ -5,18 +5,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#ead8d0">
-<title>Us ❤️</title>
+<title>A Letter ❤️</title>
 
 <style>
-/* =========================
-   RESET & PAGE SYSTEM
-========================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body {
     width: 100%;
@@ -31,14 +23,9 @@ html, body {
     display: none;
     overflow: hidden;
 }
+.page.active { display: block; }
 
-.page.active {
-    display: block;
-}
-
-/* =========================
-   HOME
-========================= */
+/* HOME */
 
 .home-background {
     position: absolute;
@@ -46,14 +33,12 @@ html, body {
     background: #242020 url("background/homeBG.jpg") center / cover no-repeat;
     z-index: 0;
 }
-
 .home-overlay {
     position: absolute;
     inset: 0;
     background: rgba(0,0,0,.18);
     z-index: 1;
 }
-
 .home-content {
     position: relative;
     z-index: 2;
@@ -65,7 +50,6 @@ html, body {
     gap: 35px;
     padding: 30px;
 }
-
 .home-card {
     width: 190px;
     height: 190px;
@@ -83,15 +67,12 @@ html, body {
     box-shadow: 0 15px 40px rgba(0,0,0,.22);
     transition: transform .4s ease, background .4s ease;
 }
-
 .home-card:hover {
     transform: translateY(-8px) scale(1.04);
     background: rgba(255,255,255,.24);
 }
 
-/* =========================
-   GALLERY
-========================= */
+/* GALLERY */
 
 .gallery-background {
     position: absolute;
@@ -99,14 +80,12 @@ html, body {
     background: #42372e url("background/gallery-bg.jpg") center / cover no-repeat;
     z-index: 0;
 }
-
 .gallery-overlay {
     position: absolute;
     inset: 0;
     background: rgba(0,0,0,.08);
     z-index: 1;
 }
-
 .gallery-title {
     position: absolute;
     top: 16px;
@@ -119,7 +98,6 @@ html, body {
     text-shadow: 0 3px 10px rgba(0,0,0,.45);
     animation: titleAppear .8s ease both;
 }
-
 @keyframes titleAppear {
     from { opacity: 0; transform: translate(-50%,-15px); }
     to { opacity: 1; transform: translate(-50%,0); }
@@ -141,10 +119,7 @@ html, body {
     font-size: 14px;
     transition: background .3s ease;
 }
-
-.back-button:hover {
-    background: rgba(0,0,0,.65);
-}
+.back-button:hover { background: rgba(0,0,0,.65); }
 
 /* Wires and bulbs */
 
@@ -156,7 +131,6 @@ html, body {
     transform-origin: left center;
     z-index: 3;
 }
-
 .wire-1 { left: -5%; width: 38%; transform: rotate(5deg); }
 .wire-2 { left: 26%; width: 34%; transform: rotate(-4deg); }
 .wire-3 { left: 55%; width: 30%; transform: rotate(6deg); }
@@ -173,7 +147,6 @@ html, body {
     z-index: 4;
     animation: bulbSwing 4s ease-in-out infinite;
 }
-
 .bulb::before {
     content: "";
     position: absolute;
@@ -184,7 +157,6 @@ html, body {
     bottom: 100%;
     transform: translateX(-50%);
 }
-
 .bulb-1 { left: 11%; top: 59px; }
 .bulb-2 { left: 38%; top: 65px; animation-delay: .8s; }
 .bulb-3 { left: 68%; top: 62px; animation-delay: 1.5s; }
@@ -217,7 +189,6 @@ html, body {
     opacity: 0;
     animation: polaroidAppear .8s cubic-bezier(.2,.8,.2,1) forwards;
 }
-
 .photo-hanger img {
     display: block;
     width: 100%;
@@ -225,13 +196,11 @@ html, body {
     object-fit: cover;
     pointer-events: none;
 }
-
 .photo-hanger:hover {
     z-index: 50;
     transform: translateY(-8px) rotate(0deg) scale(1.08);
     box-shadow: 0 20px 35px rgba(0,0,0,.35);
 }
-
 @keyframes polaroidAppear {
     0% { opacity: 0; transform: translateY(-25px) scale(.85); }
     70% { opacity: 1; }
@@ -241,10 +210,10 @@ html, body {
 /* Individual positions */
 
 .photo-1  { left:4%;  top:4%;  transform:rotate(-7deg); animation-delay:.05s; }
-.photo-2  { left:22%; top:16%; transform:rotate(5deg);  animation-delay:.15s; }
-.photo-3  { left:38%; top:1%;  transform:rotate(-3deg); animation-delay:.25s; }
-.photo-4  { right:4%; top:13%; transform:rotate(7deg);  animation-delay:.35s; }
-.photo-5  { left:10%; top:43%; transform:rotate(4deg);  animation-delay:.45s; }
+.photo-2  { left:22%; top:16%; transform:rotate(5deg); animation-delay:.15s; }
+.photo-3  { left:38%; top:1%; transform:rotate(-3deg); animation-delay:.25s; }
+.photo-4  { right:4%; top:13%; transform:rotate(7deg); animation-delay:.35s; }
+.photo-5  { left:10%; top:43%; transform:rotate(4deg); animation-delay:.45s; }
 .photo-6  { left:30%; top:37%; transform:rotate(-6deg); animation-delay:.55s; }
 .photo-7  { right:24%; top:41%; transform:rotate(5deg); animation-delay:.65s; }
 .photo-8  { right:3%; top:40%; transform:rotate(-5deg); animation-delay:.75s; }
@@ -277,12 +246,10 @@ html, body {
     background: rgba(0,0,0,.88);
     z-index: 100;
 }
-
 .photo-viewer.active {
     display: flex;
     animation: viewerFade .25s ease;
 }
-
 .viewer-image {
     max-width: 88vw;
     max-height: 88vh;
@@ -292,7 +259,6 @@ html, body {
     box-shadow: 0 25px 70px rgba(0,0,0,.6);
     animation: viewerImageIn .35s ease;
 }
-
 .viewer-close {
     position: absolute;
     top: 20px;
@@ -306,20 +272,16 @@ html, body {
     font-size: 24px;
     cursor: pointer;
 }
-
 @keyframes viewerFade {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-
 @keyframes viewerImageIn {
     from { transform: scale(.85) rotate(-2deg); }
     to { transform: scale(1) rotate(0); }
 }
 
-/* =========================
-   WORDS PAGE — 70% CENTRE
-========================= */
+/* LETTER PAGE */
 
 #words {
     background:
@@ -355,10 +317,7 @@ html, body {
     z-index: 1;
     transform: rotate(-4deg);
 }
-
-.words-side-right {
-    transform: rotate(4deg);
-}
+.words-side-right { transform: rotate(4deg); }
 
 /* Fixed letter card */
 
@@ -380,8 +339,7 @@ html, body {
     overflow: visible;
 }
 
-/* Large pink lily emerging from top-left.
-   It is SVG, so no extra flower image is required. */
+/* Decorative pink lily */
 
 .words-lily {
     position: absolute;
@@ -399,7 +357,6 @@ html, body {
     transform-origin: 35% 80%;
     animation: lilyReveal 1.25s ease both;
 }
-
 @keyframes lilyReveal {
     from {
         opacity: 0;
@@ -422,7 +379,6 @@ html, body {
     color: #81564f;
     z-index: 3;
 }
-
 .words-heading .eyebrow {
     font-family: Arial, sans-serif;
     font-size: 10px;
@@ -431,7 +387,6 @@ html, body {
     color: #b47e75;
     margin-bottom: 8px;
 }
-
 .words-heading h1 {
     font-size: clamp(28px, 3.2vw, 43px);
     font-weight: normal;
@@ -439,7 +394,7 @@ html, body {
     letter-spacing: .5px;
 }
 
-/* Only the text scrolls */
+/* Only the letter text scrolls */
 
 .words-scroll {
     position: absolute;
@@ -456,16 +411,11 @@ html, body {
     padding: 22px 6% 45px;
     border-top: 1px solid rgba(191,142,130,.35);
 }
-
-.words-scroll::-webkit-scrollbar {
-    width: 5px;
-}
-
+.words-scroll::-webkit-scrollbar { width: 5px; }
 .words-scroll::-webkit-scrollbar-thumb {
     background: #d6a9a0;
     border-radius: 10px;
 }
-
 .words-text {
     max-width: 760px;
     margin: 0 auto;
@@ -474,11 +424,7 @@ html, body {
     color: #654d45;
     white-space: pre-line;
 }
-
-.words-text p {
-    margin-bottom: 25px;
-}
-
+.words-text p { margin-bottom: 25px; }
 .words-signature {
     text-align: right;
     font-style: italic;
@@ -486,9 +432,6 @@ html, body {
     color: #b16e70;
     margin-top: 38px;
 }
-
-/* Delicate bottom detail */
-
 .words-card::after {
     content: "";
     position: absolute;
@@ -501,61 +444,28 @@ html, body {
     pointer-events: none;
 }
 
-/* =========================
-   US PLACEHOLDER
-========================= */
-
-.placeholder-page {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 35px;
-    background: #222;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
+/* RESPONSIVE */
 
 @media (max-width: 700px) {
-    .home-content {
-        gap: 12px;
-        padding: 15px;
-    }
-
+    .home-content { gap: 12px; padding: 15px; }
     .home-card {
-        width: 28vw;
-        height: 28vw;
-        font-size: 15px;
+        width: 38vw;
+        height: 38vw;
+        max-width: 190px;
+        max-height: 190px;
+        font-size: 17px;
         border-radius: 15px;
     }
-
-    .gallery-title {
-        font-size: 23px;
-        top: 15px;
-    }
-
+    .gallery-title { font-size: 23px; top: 15px; }
     .back-button {
         top: 12px;
         left: 10px;
         padding: 7px 11px;
         font-size: 12px;
     }
-
-    .gallery-photo-area {
-        top: 62px;
-    }
-
-    .photo-hanger {
-        width: 78px;
-        padding: 5px 5px 17px;
-    }
-
+    .gallery-photo-area { top: 62px; }
+    .photo-hanger { width: 78px; padding: 5px 5px 17px; }
     .photo-hanger img { height: 68px; }
-
     .photo-big-1 { width: 100px; }
     .photo-big-1 img { height: 88px; }
     .photo-big-2 { width: 108px; }
@@ -586,37 +496,16 @@ html, body {
         grid-template-columns: 8% 84% 8%;
         padding: 4vh 1vw;
     }
-
-    .words-side {
-        width: 100%;
-        border-width: 2px;
-    }
-
-    .words-card {
-        height: 88vh;
-    }
-
+    .words-side { width: 100%; border-width: 2px; }
+    .words-card { height: 88vh; }
     .words-lily {
         width: clamp(150px, 34vw, 240px);
         left: -12%;
         top: -10%;
     }
-
-    .words-heading {
-        top: 30px;
-        left: 12%;
-        right: 6%;
-    }
-
-    .words-heading .eyebrow {
-        font-size: 8px;
-        letter-spacing: 2.5px;
-    }
-
-    .words-heading h1 {
-        font-size: clamp(24px, 5.5vw, 34px);
-    }
-
+    .words-heading { top: 30px; left: 12%; right: 6%; }
+    .words-heading .eyebrow { font-size: 8px; letter-spacing: 2.5px; }
+    .words-heading h1 { font-size: clamp(24px, 5.5vw, 34px); }
     .words-scroll {
         top: 108px;
         bottom: 20px;
@@ -624,70 +513,40 @@ html, body {
         right: 6%;
         padding: 18px 4% 35px;
     }
-
-    .words-text {
-        font-size: 15px;
-        line-height: 1.9;
-    }
+    .words-text { font-size: 15px; line-height: 1.9; }
 }
 
 @media (max-width: 450px) {
-    .photo-hanger {
-        width: 63px;
-        padding: 4px 4px 14px;
-    }
-
+    .photo-hanger { width: 63px; padding: 4px 4px 14px; }
     .photo-hanger img { height: 54px; }
-
     .photo-big-1 { width: 82px; }
     .photo-big-1 img { height: 72px; }
     .photo-big-2 { width: 88px; }
     .photo-big-2 img { height: 77px; }
     .photo-big-3 { width: 82px; }
     .photo-big-3 img { height: 72px; }
-
     .gallery-title { font-size: 20px; }
 
     .words-layout {
         grid-template-columns: 5% 90% 5%;
         padding: 4vh 1vw;
     }
-
-    .words-side {
-        width: 100%;
-        border-width: 1px;
-    }
-
-    .words-card {
-        height: 88vh;
-    }
-
+    .words-side { width: 100%; border-width: 1px; }
+    .words-card { height: 88vh; }
     .words-lily {
         width: clamp(125px, 36vw, 180px);
         left: -12%;
         top: -7%;
     }
-
-    .words-heading {
-        top: 28px;
-        left: 10%;
-        right: 4%;
-    }
-
+    .words-heading { top: 28px; left: 10%; right: 4%; }
     .words-heading h1 { font-size: 24px; }
-
     .words-scroll {
         top: 100px;
         left: 5%;
         right: 5%;
         padding: 15px 3% 30px;
     }
-
-    .words-text {
-        font-size: 14px;
-        line-height: 1.85;
-    }
-
+    .words-text { font-size: 14px; line-height: 1.85; }
     .words-signature { font-size: 17px; }
 }
 
@@ -703,7 +562,7 @@ html, body {
 
 <body>
 
-<!-- HOME -->
+<!-- HOME: only Gallery and the letter section -->
 
 <section id="home" class="page active">
     <div class="home-background"></div>
@@ -711,8 +570,7 @@ html, body {
 
     <div class="home-content">
         <div class="home-card" onclick="showPage('gallery')">Gallery</div>
-        <div class="home-card" onclick="showPage('words')">Words</div>
-        <div class="home-card" onclick="showPage('us')">Us</div>
+        <div class="home-card" onclick="showPage('words')">A Letter</div>
     </div>
 </section>
 
@@ -757,25 +615,26 @@ html, body {
     </div>
 </section>
 
-<!-- WORDS -->
+<!-- LETTER PAGE -->
 
 <section id="words" class="page">
     <button class="back-button" onclick="showPage('home')">← Back</button>
 
     <div class="words-layout">
 
+        <!-- New left-side picture -->
         <img class="words-side"
-             src="photos/5.jpeg"
-             alt="A favourite memory">
+             src="photos/left.jpeg"
+             alt="Left letter photograph">
 
         <article class="words-card">
 
-            <!-- Large pink lily -->
+            <!-- Decorative pink lily -->
             <svg class="words-lily"
                  viewBox="0 0 260 290"
                  xmlns="http://www.w3.org/2000/svg"
                  role="img"
-                 aria-label="Large pink lily">
+                 aria-label="Pink lily">
 
                 <defs>
                     <linearGradient id="pinkPetal" x1="0" y1="0" x2="1" y2="1">
@@ -784,9 +643,155 @@ html, body {
                         <stop offset="60%" stop-color="#e99aaa"/>
                         <stop offset="100%" stop-color="#bd647c"/>
                     </linearGradient>
-
-                    <linearGradient id="pinkPetalLight" x1="0" y1="0" x2="0.8" y2="1">
+                    <linearGradient id="pinkPetalLight" x1="0" y1="0" x2=".8" y2="1">
                         <stop offset="0%" stop-color="#fffaf4"/>
                         <stop offset="50%" stop-color="#f4b9c5"/>
                         <stop offset="100%" stop-color="#d77e94"/>
-                    </linearGr
+                    </linearGradient>
+                    <linearGradient id="lilyStem" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#496b42"/>
+                        <stop offset="50%" stop-color="#78905a"/>
+                        <stop offset="100%" stop-color="#344d31"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- Stem -->
+                <path d="M130 145 C128 190 112 230 86 276"
+                      fill="none" stroke="url(#lilyStem)"
+                      stroke-width="7" stroke-linecap="round"/>
+
+                <!-- Leaves -->
+                <path d="M113 207 C65 180 43 193 39 210 C66 225 93 222 113 207Z"
+                      fill="#688755" stroke="#3f603b" stroke-width="1.5"/>
+                <path d="M109 208 Q75 205 43 210"
+                      fill="none" stroke="#a7b789" stroke-width="1.5"/>
+
+                <path d="M101 233 C110 198 147 192 160 201 C147 224 125 234 101 233Z"
+                      fill="#7c9660" stroke="#496b42" stroke-width="1.5"/>
+                <path d="M105 231 Q131 212 155 202"
+                      fill="none" stroke="#b2c397" stroke-width="1.5"/>
+
+                <!-- Lily petals -->
+                <path d="M130 143 C91 112 61 72 82 39 C112 43 130 88 130 143Z"
+                      fill="url(#pinkPetal)" stroke="#d78c9d" stroke-width="1.3"/>
+                <path d="M130 143 C112 91 119 32 151 17 C175 46 159 104 130 143Z"
+                      fill="url(#pinkPetalLight)" stroke="#d78c9d" stroke-width="1.3"/>
+                <path d="M130 143 C153 91 187 63 212 79 C213 113 170 139 130 143Z"
+                      fill="url(#pinkPetal)" stroke="#d78c9d" stroke-width="1.3"/>
+                <path d="M130 143 C178 126 224 128 236 157 C212 182 166 166 130 143Z"
+                      fill="url(#pinkPetalLight)" stroke="#d78c9d" stroke-width="1.3"/>
+                <path d="M130 143 C151 181 154 222 126 240 C101 216 111 173 130 143Z"
+                      fill="url(#pinkPetal)" stroke="#d78c9d" stroke-width="1.3"/>
+                <path d="M130 143 C98 174 61 184 40 160 C53 129 95 129 130 143Z"
+                      fill="url(#pinkPetalLight)" stroke="#d78c9d" stroke-width="1.3"/>
+
+                <!-- Petal veins -->
+                <g fill="none" stroke="#c7788e" stroke-width="1.3" opacity=".7">
+                    <path d="M130 140 Q103 90 84 43"/>
+                    <path d="M130 140 Q126 72 150 21"/>
+                    <path d="M130 140 Q169 94 209 82"/>
+                    <path d="M130 143 Q190 144 232 157"/>
+                    <path d="M130 143 Q138 193 127 235"/>
+                    <path d="M130 143 Q83 145 44 159"/>
+                </g>
+
+                <!-- Centre -->
+                <circle cx="130" cy="143" r="9" fill="#e9b76d"/>
+                <circle cx="130" cy="143" r="4" fill="#9b6046"/>
+
+                <!-- Stamens -->
+                <g stroke="#d3a15c" stroke-width="2.5" stroke-linecap="round">
+                    <path d="M130 140 Q121 117 109 104"/>
+                    <path d="M132 140 Q137 113 149 98"/>
+                    <path d="M134 142 Q160 129 174 124"/>
+                    <path d="M128 144 Q101 137 88 132"/>
+                    <path d="M131 145 Q139 166 145 178"/>
+                </g>
+                <g fill="#a66d42">
+                    <ellipse cx="107" cy="102" rx="5" ry="3.5" transform="rotate(45 107 102)"/>
+                    <ellipse cx="150" cy="96" rx="5" ry="3.5" transform="rotate(-45 150 96)"/>
+                    <ellipse cx="176" cy="123" rx="5" ry="3.5" transform="rotate(-20 176 123)"/>
+                    <ellipse cx="86" cy="131" rx="5" ry="3.5" transform="rotate(15 86 131)"/>
+                    <ellipse cx="146" cy="180" rx="5" ry="3.5" transform="rotate(60 146 180)"/>
+                </g>
+            </svg>
+
+            <div class="words-heading">
+                <div class="eyebrow">A LITTLE SOMETHING FOR YOU</div>
+                <h1>A Letter</h1>
+            </div>
+
+            <div class="words-scroll">
+                <div class="words-text">
+                    <p>To my favourite person,</p>
+
+                    <p>This is where your letter will go. Take your time writing your thoughts and everything you want her to know.</p>
+
+                    <p>You can replace these paragraphs with your own words whenever you're ready.</p>
+
+                    <p>With all my love,</p>
+
+                    <div class="words-signature">Yours ❤️</div>
+                </div>
+            </div>
+
+        </article>
+
+        <!-- New right-side picture -->
+        <img class="words-side words-side-right"
+             src="photos/right.jpeg"
+             alt="Right letter photograph">
+
+    </div>
+</section>
+
+<!-- PHOTO VIEWER -->
+
+<div class="photo-viewer" id="photoViewer" onclick="closePhoto()">
+    <button class="viewer-close" onclick="closePhoto()" aria-label="Close photo">×</button>
+    <img class="viewer-image" id="viewerImage" src="" alt="Expanded memory">
+</div>
+
+<script>
+function showPage(pageId) {
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    const target = document.getElementById(pageId);
+    if (target) target.classList.add("active");
+
+    if (pageId === "gallery") {
+        document.querySelectorAll(".photo-hanger").forEach(photo => {
+            photo.style.animation = "none";
+            void photo.offsetWidth;
+            photo.style.animation = "";
+        });
+    }
+
+    if (pageId === "words") {
+        const scrollArea = document.querySelector(".words-scroll");
+        if (scrollArea) scrollArea.scrollTop = 0;
+    }
+}
+
+function openPhoto(src) {
+    const viewer = document.getElementById("photoViewer");
+    const image = document.getElementById("viewerImage");
+
+    image.src = src;
+    viewer.classList.add("active");
+}
+
+function closePhoto() {
+    document.getElementById("photoViewer").classList.remove("active");
+}
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closePhoto();
+});
+</script>
+
+</body>
+</html>
+
