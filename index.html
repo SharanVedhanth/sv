@@ -520,9 +520,54 @@ html, body {
     .photo-big-3 img { height: 72px; }
     .gallery-title { font-size: 20px; }
 
-    .words-layout { grid-template-columns: 5% 90% 5%; gap: 0; padding: 4vh 1vw; }
-    .words-side { width: 100%; max-height: 40vh; border-width: 1px; }
-    .words-card { height: 88vh; }
+.words-layout {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
+    gap: 0;
+    padding: 4vh 3vw;
+    isolation: isolate;
+}
+
+.words-side {
+    display: block;
+    position: absolute;
+    width: 29vw;
+    height: auto;
+    max-height: 30vh;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border: 4px solid #fff9f2;
+    outline: 1px solid rgba(136,83,76,.4);
+    box-shadow: 0 8px 20px rgba(91,52,48,.24);
+    border-radius: 2px;
+    z-index: 3;
+}
+
+.words-side-left {
+    left: 1vw;
+    top: 12vh;
+    transform: rotate(-7deg);
+}
+
+.words-side-right {
+    right: 1vw;
+    bottom: 10vh;
+    transform: rotate(7deg);
+}
+
+.words-card {
+    position: relative;
+    width: 100%;
+    height: 88vh;
+    max-height: none;
+    min-height: 0;
+    z-index: 2;
+}
+
     .words-lily { width: clamp(125px,36vw,180px); left: -12%; top: -7%; }
     .words-heading { top: 28px; left: 10%; right: 4%; }
     .words-heading h1 { font-size: 24px; }
