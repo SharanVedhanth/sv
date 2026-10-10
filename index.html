@@ -1,1357 +1,792 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="theme-color" content="#ead8d0">
 <title>Us ❤️</title>
 
 <style>
-
 /* =========================
-   RESET
+   RESET & PAGE SYSTEM
 ========================= */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html,
-body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    font-family:Georgia, "Times New Roman", serif;
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Georgia, "Times New Roman", serif;
 }
 
-
-/* =========================
-   PAGE SYSTEM
-========================= */
-
-.page{
-    position:absolute;
-    inset:0;
-    display:none;
-    overflow:hidden;
+.page {
+    position: absolute;
+    inset: 0;
+    display: none;
+    overflow: hidden;
 }
 
-.page.active{
-    display:block;
+.page.active {
+    display: block;
 }
-
 
 /* =========================
    HOME
 ========================= */
 
-.home-background{
-    position:absolute;
-    inset:0;
-
-    background-image:url("background/homeBG.jpg");
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-
-    z-index:0;
+.home-background {
+    position: absolute;
+    inset: 0;
+    background: #242020 url("background/homeBG.jpg") center / cover no-repeat;
+    z-index: 0;
 }
 
-.home-overlay{
-    position:absolute;
-    inset:0;
-
-    background:rgba(0,0,0,0.18);
-
-    z-index:1;
+.home-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.18);
+    z-index: 1;
 }
 
-.home-content{
-    position:relative;
-    z-index:2;
-
-    width:100%;
-    height:100%;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:35px;
-
-    padding:30px;
+.home-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    padding: 30px;
 }
 
-.home-card{
-    width:190px;
-    height:190px;
+.home-card {
+    width: 190px;
+    height: 190px;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 25px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.35);
+    backdrop-filter: blur(7px);
+    box-shadow: 0 15px 40px rgba(0,0,0,.22);
+    transition: transform .4s ease, background .4s ease;
+}
 
-    border-radius:22px;
+.home-card:hover {
+    transform: translateY(-8px) scale(1.04);
+    background: rgba(255,255,255,.24);
+}
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+/* =========================
+   GALLERY
+========================= */
 
-    color:white;
-    font-size:25px;
-    letter-spacing:1px;
+.gallery-background {
+    position: absolute;
+    inset: 0;
+    background: #42372e url("background/gallery-bg.jpg") center / cover no-repeat;
+    z-index: 0;
+}
 
-    cursor:pointer;
+.gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.08);
+    z-index: 1;
+}
 
-    background:rgba(255,255,255,0.15);
-    border:1px solid rgba(255,255,255,0.35);
+.gallery-title {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    text-shadow: 0 3px 10px rgba(0,0,0,.45);
+    animation: titleAppear .8s ease both;
+}
 
-    backdrop-filter:blur(7px);
+@keyframes titleAppear {
+    from { opacity: 0; transform: translate(-50%,-15px); }
+    to { opacity: 1; transform: translate(-50%,0); }
+}
 
+.back-button {
+    position: absolute;
+    top: 17px;
+    left: 18px;
+    z-index: 30;
+    padding: 9px 16px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 20px;
+    color: white;
+    background: rgba(0,0,0,.4);
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    font: inherit;
+    font-size: 14px;
+    transition: background .3s ease;
+}
+
+.back-button:hover {
+    background: rgba(0,0,0,.65);
+}
+
+/* Wires and bulbs */
+
+.gallery-wire {
+    position: absolute;
+    top: 65px;
+    height: 2px;
+    background: rgba(35,35,35,.7);
+    transform-origin: left center;
+    z-index: 3;
+}
+
+.wire-1 { left: -5%; width: 38%; transform: rotate(5deg); }
+.wire-2 { left: 26%; width: 34%; transform: rotate(-4deg); }
+.wire-3 { left: 55%; width: 30%; transform: rotate(6deg); }
+.wire-4 { left: 80%; width: 27%; transform: rotate(-5deg); }
+
+.bulb {
+    position: absolute;
+    width: 13px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff6c7;
+    box-shadow: 0 0 10px rgba(255,240,150,.9),
+                0 0 25px rgba(255,230,120,.7);
+    z-index: 4;
+    animation: bulbSwing 4s ease-in-out infinite;
+}
+
+.bulb::before {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 18px;
+    background: #222;
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%);
+}
+
+.bulb-1 { left: 11%; top: 59px; }
+.bulb-2 { left: 38%; top: 65px; animation-delay: .8s; }
+.bulb-3 { left: 68%; top: 62px; animation-delay: 1.5s; }
+.bulb-4 { left: 88%; top: 67px; animation-delay: 2.2s; }
+
+@keyframes bulbSwing {
+    0%,100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+}
+
+.gallery-photo-area {
+    position: absolute;
+    inset: 72px 0 12px;
+    z-index: 5;
+}
+
+/* Polaroids */
+
+.photo-hanger {
+    position: absolute;
+    width: 112px;
+    padding: 8px 8px 24px;
+    background: #fffdf7;
+    border-radius: 2px;
+    box-shadow: 0 9px 18px rgba(0,0,0,.28),
+                0 2px 4px rgba(0,0,0,.12);
+    cursor: pointer;
+    transform-origin: center top;
+    transition: transform .35s ease, box-shadow .35s ease;
+    opacity: 0;
+    animation: polaroidAppear .8s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+.photo-hanger img {
+    display: block;
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.photo-hanger:hover {
+    z-index: 50;
+    transform: translateY(-8px) rotate(0deg) scale(1.08);
+    box-shadow: 0 20px 35px rgba(0,0,0,.35);
+}
+
+@keyframes polaroidAppear {
+    0% { opacity: 0; transform: translateY(-25px) scale(.85); }
+    70% { opacity: 1; }
+    100% { opacity: 1; }
+}
+
+/* Individual positions */
+
+.photo-1  { left:4%;  top:4%;  transform:rotate(-7deg); animation-delay:.05s; }
+.photo-2  { left:22%; top:16%; transform:rotate(5deg);  animation-delay:.15s; }
+.photo-3  { left:38%; top:1%;  transform:rotate(-3deg); animation-delay:.25s; }
+.photo-4  { right:4%; top:13%; transform:rotate(7deg);  animation-delay:.35s; }
+.photo-5  { left:10%; top:43%; transform:rotate(4deg);  animation-delay:.45s; }
+.photo-6  { left:30%; top:37%; transform:rotate(-6deg); animation-delay:.55s; }
+.photo-7  { right:24%; top:41%; transform:rotate(5deg); animation-delay:.65s; }
+.photo-8  { right:3%; top:40%; transform:rotate(-5deg); animation-delay:.75s; }
+.photo-9  { left:2%; top:72%; transform:rotate(6deg); animation-delay:.85s; }
+.photo-10 { left:24%; top:67%; transform:rotate(-5deg); animation-delay:.95s; }
+.photo-11 { left:47%; top:66%; transform:rotate(3deg); animation-delay:1.05s; }
+.photo-12 { right:7%; top:73%; transform:rotate(-6deg); animation-delay:1.15s; }
+.photo-13 { left:15%; top:28%; transform:rotate(-4deg); animation-delay:1.25s; }
+.photo-14 { left:57%; top:22%; transform:rotate(6deg); animation-delay:1.35s; }
+.photo-15 { right:15%; top:30%; transform:rotate(-4deg); animation-delay:1.45s; }
+.photo-16 { left:39%; top:55%; transform:rotate(7deg); animation-delay:1.55s; }
+.photo-17 { right:14%; top:2%; transform:rotate(-6deg); animation-delay:1.65s; }
+.photo-18 { right:30%; top:1%; transform:rotate(5deg); animation-delay:1.75s; }
+
+.photo-big-1 { width:145px; }
+.photo-big-1 img { height:130px; }
+.photo-big-2 { width:155px; }
+.photo-big-2 img { height:140px; }
+.photo-big-3 { width:145px; }
+.photo-big-3 img { height:130px; }
+
+/* Photo viewer */
+
+.photo-viewer {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.88);
+    z-index: 100;
+}
+
+.photo-viewer.active {
+    display: flex;
+    animation: viewerFade .25s ease;
+}
+
+.viewer-image {
+    max-width: 88vw;
+    max-height: 88vh;
+    object-fit: contain;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 25px 70px rgba(0,0,0,.6);
+    animation: viewerImageIn .35s ease;
+}
+
+.viewer-close {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    background: rgba(255,255,255,.15);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@keyframes viewerFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes viewerImageIn {
+    from { transform: scale(.85) rotate(-2deg); }
+    to { transform: scale(1) rotate(0); }
+}
+
+/* =========================
+   WORDS PAGE — 70% CENTRE
+========================= */
+
+#words {
+    background:
+        radial-gradient(ellipse at 50% 0%, #fff3f1 0%, transparent 48%),
+        linear-gradient(135deg, #f0dcd5, #d6b4a8 55%, #c59e91);
+    color: #63483f;
+}
+
+/* 15% left photo / 70% letter / 15% right photo */
+
+.words-layout {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+    align-items: center;
+    padding: 5vh 1.5vw;
+    isolation: isolate;
+}
+
+/* Side pictures */
+
+.words-side {
+    display: block;
+    width: 88%;
+    aspect-ratio: 3 / 4;
+    justify-self: center;
+    object-fit: cover;
+    border: 5px solid #fff9f2;
+    outline: 1px solid rgba(136,83,76,.4);
+    box-shadow: 0 10px 28px rgba(91,52,48,.22);
+    border-radius: 2px;
+    z-index: 1;
+    transform: rotate(-4deg);
+}
+
+.words-side-right {
+    transform: rotate(4deg);
+}
+
+/* Fixed letter card */
+
+.words-card {
+    position: relative;
+    width: 100%;
+    height: 84vh;
+    max-height: 900px;
+    min-height: 0;
+    background:
+        linear-gradient(120deg, rgba(255,255,255,.7), transparent 40%),
+        #fff9f3;
+    border: 1px solid #e2c5bd;
     box-shadow:
-        0 15px 40px rgba(0,0,0,0.22);
-
-    transition:
-        transform 0.45s ease,
-        box-shadow 0.45s ease,
-        background 0.45s ease;
+        0 22px 60px rgba(102,60,54,.23),
+        inset 0 0 0 7px rgba(225,192,181,.25),
+        inset 0 0 30px rgba(166,102,91,.08);
+    z-index: 2;
+    overflow: visible;
 }
 
-.home-card:hover{
-    transform:
-        translateY(-10px)
-        scale(1.04);
+/* Large pink lily emerging from top-left.
+   It is SVG, so no extra flower image is required. */
 
-    background:rgba(255,255,255,0.22);
-
-    box-shadow:
-        0 22px 55px rgba(0,0,0,0.3);
+.words-lily {
+    position: absolute;
+    width: clamp(190px, 27vw, 350px);
+    height: auto;
+    left: -15%;
+    top: -17%;
+    z-index: 6;
+    overflow: visible;
+    pointer-events: none;
+    filter:
+        drop-shadow(4px 9px 6px rgba(93,49,48,.24))
+        drop-shadow(0 0 1px rgba(255,255,255,.8));
+    transform: rotate(-9deg);
+    transform-origin: 35% 80%;
+    animation: lilyReveal 1.25s ease both;
 }
 
-
-/* =========================
-   GALLERY BACKGROUND
-========================= */
-
-.gallery-background{
-    position:absolute;
-    inset:0;
-
-    background-image:url("background/gallery-bg.jpg");
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-
-    z-index:0;
-}
-
-.gallery-overlay{
-    position:absolute;
-    inset:0;
-
-    background:rgba(0,0,0,0.08);
-
-    z-index:1;
-}
-
-
-/* =========================
-   GALLERY TITLE
-========================= */
-
-.gallery-title{
-    position:absolute;
-
-    top:16px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    z-index:20;
-
-    color:white;
-
-    font-size:32px;
-    font-weight:bold;
-
-    text-shadow:
-        0 3px 10px rgba(0,0,0,0.45);
-
-    animation:titleAppear 0.8s ease both;
-}
-
-@keyframes titleAppear{
-
-    from{
-        opacity:0;
-        transform:translateX(-50%) translateY(-15px);
+@keyframes lilyReveal {
+    from {
+        opacity: 0;
+        transform: translate(-15px, 12px) rotate(-16deg) scale(.94);
     }
-
-    to{
-        opacity:1;
-        transform:translateX(-50%) translateY(0);
+    to {
+        opacity: 1;
+        transform: translate(0,0) rotate(-9deg) scale(1);
     }
-
 }
 
+/* Heading stays in place */
 
-/* =========================
-   BACK BUTTON
-========================= */
-
-.back-button{
-    position:absolute;
-
-    top:17px;
-    left:18px;
-
-    z-index:30;
-
-    padding:9px 16px;
-
-    border:none;
-    border-radius:20px;
-
-    color:white;
-    background:rgba(0,0,0,0.35);
-
-    cursor:pointer;
-
-    backdrop-filter:blur(5px);
-
-    transition:
-        transform 0.3s ease,
-        background 0.3s ease;
+.words-heading {
+    position: absolute;
+    top: 33px;
+    left: 13%;
+    right: 9%;
+    text-align: center;
+    color: #81564f;
+    z-index: 3;
 }
 
-.back-button:hover{
-    transform:translateX(-3px);
-    background:rgba(0,0,0,0.55);
+.words-heading .eyebrow {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #b47e75;
+    margin-bottom: 8px;
 }
 
-
-/* =========================
-   HANGING WIRES
-========================= */
-
-.gallery-wire{
-    position:absolute;
-
-    top:65px;
-
-    height:2px;
-
-    background:rgba(35,35,35,0.7);
-
-    transform-origin:left center;
-
-    z-index:3;
+.words-heading h1 {
+    font-size: clamp(28px, 3.2vw, 43px);
+    font-weight: normal;
+    font-style: italic;
+    letter-spacing: .5px;
 }
 
-.wire-1{
-    left:-5%;
-    width:38%;
+/* Only the text scrolls */
 
-    transform:rotate(5deg);
+.words-scroll {
+    position: absolute;
+    top: 125px;
+    bottom: 27px;
+    left: 9%;
+    right: 9%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #d6a9a0 transparent;
+    padding: 22px 6% 45px;
+    border-top: 1px solid rgba(191,142,130,.35);
 }
 
-.wire-2{
-    left:26%;
-    width:34%;
-
-    transform:rotate(-4deg);
+.words-scroll::-webkit-scrollbar {
+    width: 5px;
 }
 
-.wire-3{
-    left:55%;
-    width:30%;
-
-    transform:rotate(6deg);
+.words-scroll::-webkit-scrollbar-thumb {
+    background: #d6a9a0;
+    border-radius: 10px;
 }
 
-.wire-4{
-    left:80%;
-    width:27%;
-
-    transform:rotate(-5deg);
+.words-text {
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: clamp(16px, 1.55vw, 20px);
+    line-height: 2;
+    color: #654d45;
+    white-space: pre-line;
 }
 
-
-/* =========================
-   LIGHT BULBS
-========================= */
-
-.bulb{
-    position:absolute;
-
-    width:13px;
-    height:18px;
-
-    border-radius:50%;
-
-    background:#fff6c7;
-
-    box-shadow:
-        0 0 10px rgba(255,240,150,0.9),
-        0 0 25px rgba(255,230,120,0.7);
-
-    z-index:4;
-
-    animation:
-        bulbSwing 4s ease-in-out infinite;
+.words-text p {
+    margin-bottom: 25px;
 }
 
-.bulb::before{
-    content:"";
-
-    position:absolute;
-
-    width:2px;
-    height:18px;
-
-    background:#222;
-
-    left:50%;
-    bottom:100%;
-
-    transform:translateX(-50%);
+.words-signature {
+    text-align: right;
+    font-style: italic;
+    font-size: 22px;
+    color: #b16e70;
+    margin-top: 38px;
 }
 
-.bulb-1{
-    left:11%;
-    top:59px;
-
-    animation-delay:0s;
-}
-
-.bulb-2{
-    left:38%;
-    top:65px;
-
-    animation-delay:0.8s;
-}
-
-.bulb-3{
-    left:68%;
-    top:62px;
-
-    animation-delay:1.5s;
-}
-
-.bulb-4{
-    left:88%;
-    top:67px;
-
-    animation-delay:2.2s;
-}
-
-@keyframes bulbSwing{
-
-    0%,
-    100%{
-        transform:rotate(-2deg);
-    }
-
-    50%{
-        transform:rotate(2deg);
-    }
-
-}
-
-
-/* =========================
-   PHOTO AREA
-========================= */
-
-.gallery-photo-area{
-    position:absolute;
-
-    left:0;
-    right:0;
-
-    top:72px;
-    bottom:12px;
-
-    z-index:5;
-}
-
-
-/* =========================
-   POLAROID
-========================= */
-
-.photo-hanger{
-    position:absolute;
-
-    width:112px;
-
-    padding:8px 8px 24px 8px;
-
-    background:#fffdf7;
-
-    border-radius:2px;
-
-    box-shadow:
-        0 9px 18px rgba(0,0,0,0.28),
-        0 2px 4px rgba(0,0,0,0.12);
-
-    cursor:pointer;
-
-    transform-origin:center top;
-
-    transition:
-        transform 0.4s cubic-bezier(.2,.8,.2,1),
-        box-shadow 0.4s ease;
-
-    opacity:0;
-
-    animation:
-        polaroidAppear 0.8s cubic-bezier(.2,.8,.2,1) forwards;
-}
-
-.photo-hanger img{
-    display:block;
-
-    width:100%;
-    height:100px;
-
-    object-fit:cover;
-
-    user-select:none;
-
-    pointer-events:none;
-}
-
-
-/* =========================
-   POLAROID HOVER
-========================= */
-
-.photo-hanger:hover{
-    z-index:50;
-
-    transform:
-        rotate(0deg)
-        translateY(-10px)
-        scale(1.09);
-
-    box-shadow:
-        0 20px 35px rgba(0,0,0,0.35);
-}
-
-
-/* =========================
-   POLAROID APPEAR ANIMATION
-========================= */
-
-@keyframes polaroidAppear{
-
-    0%{
-        opacity:0;
-
-        transform:
-            translateY(-35px)
-            rotate(0deg)
-            scale(0.85);
-    }
-
-    70%{
-        opacity:1;
-
-        transform:
-            translateY(5px)
-            rotate(var(--rotation))
-            scale(1.02);
-    }
-
-    100%{
-        opacity:1;
-
-        transform:
-            translateY(0)
-            rotate(var(--rotation))
-            scale(1);
-    }
-
-}
-
-
-/* =========================
-   INDIVIDUAL POLAROIDS
-========================= */
-
-.photo-1{
-    left:4%;
-    top:4%;
-
-    --rotation:-7deg;
-    transform:rotate(-7deg);
-
-    animation-delay:0.05s;
-}
-
-.photo-2{
-    left:22%;
-    top:16%;
-
-    --rotation:5deg;
-    transform:rotate(5deg);
-
-    animation-delay:0.15s;
-}
-
-.photo-3{
-    left:41%;
-    top:3%;
-
-    --rotation:-3deg;
-    transform:rotate(-3deg);
-
-    animation-delay:0.25s;
-}
-
-.photo-4{
-    right:4%;
-    top:13%;
-
-    --rotation:7deg;
-    transform:rotate(7deg);
-
-    animation-delay:0.35s;
-}
-
-.photo-5{
-    left:10%;
-    top:43%;
-
-    --rotation:4deg;
-    transform:rotate(4deg);
-
-    animation-delay:0.45s;
-}
-
-.photo-6{
-    left:30%;
-    top:37%;
-
-    --rotation:-6deg;
-    transform:rotate(-6deg);
-
-    animation-delay:0.55s;
-}
-
-.photo-7{
-    right:28%;
-    top:46%;
-
-    --rotation:5deg;
-    transform:rotate(5deg);
-
-    animation-delay:0.65s;
-}
-
-.photo-8{
-    right:3%;
-    top:40%;
-
-    --rotation:-5deg;
-    transform:rotate(-5deg);
-
-    animation-delay:0.75s;
-}
-
-.photo-9{
-    left:2%;
-    top:72%;
-
-    --rotation:6deg;
-    transform:rotate(6deg);
-
-    animation-delay:0.85s;
-}
-
-.photo-10{
-    left:24%;
-    top:67%;
-
-    --rotation:-5deg;
-    transform:rotate(-5deg);
-
-    animation-delay:0.95s;
-}
-
-.photo-11{
-    left:48%;
-    top:69%;
-
-    --rotation:3deg;
-    transform:rotate(3deg);
-
-    animation-delay:1.05s;
-}
-
-.photo-12{
-    right:7%;
-    top:73%;
-
-    --rotation:-6deg;
-    transform:rotate(-6deg);
-
-    animation-delay:1.15s;
-}
-
-.photo-13{
-    left:15%;
-    top:28%;
-
-    --rotation:-4deg;
-    transform:rotate(-4deg);
-
-    animation-delay:1.25s;
-}
-
-.photo-14{
-    left:57%;
-    top:22%;
-
-    --rotation:6deg;
-    transform:rotate(6deg);
-
-    animation-delay:1.35s;
-}
-
-.photo-15{
-    right:15%;
-    top:30%;
-
-    --rotation:-4deg;
-    transform:rotate(-4deg);
-
-    animation-delay:1.45s;
-}
-
-.photo-16{
-    left:39%;
-    top:55%;
-
-    --rotation:7deg;
-    transform:rotate(7deg);
-
-    animation-delay:1.55s;
-}
-
-.photo-17{
-    right:14%;
-    top:2%;
-
-    --rotation:-6deg;
-    transform:rotate(-6deg);
-
-    animation-delay:1.65s;
-}
-
-.photo-18{
-    right:30%;
-    top:1%;
-
-    --rotation:5deg;
-    transform:rotate(5deg);
-
-    animation-delay:1.75s;
+/* Delicate bottom detail */
+
+.words-card::after {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    width: 65px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d6a9a0, transparent);
+    transform: translateX(-50%);
+    pointer-events: none;
 }
 
 /* =========================
-   FAVORITE / BIG POLAROIDS
+   US PLACEHOLDER
 ========================= */
 
-.photo-big-1{
-    width:145px;
+.placeholder-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 35px;
+    background: #222;
 }
-
-.photo-big-1 img{
-    height:130px;
-}
-
-.photo-big-2{
-    width:155px;
-}
-
-.photo-big-2 img{
-    height:140px;
-}
-
-.photo-big-3{
-    width:145px;
-}
-
-.photo-big-3 img{
-    height:130px;
-}
-
-
-/* Bigger photo positions */
-
-.photo-3.photo-big-1{
-    left:38%;
-    top:1%;
-}
-
-.photo-7.photo-big-2{
-    right:24%;
-    top:41%;
-}
-
-.photo-11.photo-big-3{
-    left:47%;
-    top:66%;
-}
-
 
 /* =========================
-   PHOTO VIEWER
+   RESPONSIVE
 ========================= */
 
-.photo-viewer{
-    position:fixed;
+@media (max-width: 700px) {
+    .home-content {
+        gap: 12px;
+        padding: 15px;
+    }
 
-    inset:0;
+    .home-card {
+        width: 28vw;
+        height: 28vw;
+        font-size: 15px;
+        border-radius: 15px;
+    }
 
-    display:none;
-    align-items:center;
-    justify-content:center;
+    .gallery-title {
+        font-size: 23px;
+        top: 15px;
+    }
 
-    background:rgba(0,0,0,0.86);
+    .back-button {
+        top: 12px;
+        left: 10px;
+        padding: 7px 11px;
+        font-size: 12px;
+    }
 
-    z-index:100;
+    .gallery-photo-area {
+        top: 62px;
+    }
+
+    .photo-hanger {
+        width: 78px;
+        padding: 5px 5px 17px;
+    }
+
+    .photo-hanger img { height: 68px; }
+
+    .photo-big-1 { width: 100px; }
+    .photo-big-1 img { height: 88px; }
+    .photo-big-2 { width: 108px; }
+    .photo-big-2 img { height: 96px; }
+    .photo-big-3 { width: 100px; }
+    .photo-big-3 img { height: 88px; }
+
+    .photo-1 { left:2%; top:4%; }
+    .photo-2 { left:22%; top:16%; }
+    .photo-3 { left:36%; top:1%; }
+    .photo-4 { right:2%; top:12%; }
+    .photo-5 { left:7%; top:43%; }
+    .photo-6 { left:29%; top:36%; }
+    .photo-7 { right:20%; top:40%; }
+    .photo-8 { right:1%; top:39%; }
+    .photo-9 { left:1%; top:72%; }
+    .photo-10 { left:22%; top:68%; }
+    .photo-11 { left:44%; top:65%; }
+    .photo-12 { right:4%; top:73%; }
+    .photo-13 { left:13%; top:27%; }
+    .photo-14 { left:56%; top:21%; }
+    .photo-15 { right:12%; top:29%; }
+    .photo-16 { left:38%; top:53%; }
+    .photo-17 { right:8%; top:2%; }
+    .photo-18 { right:28%; top:1%; }
+
+    .words-layout {
+        grid-template-columns: 8% 84% 8%;
+        padding: 4vh 1vw;
+    }
+
+    .words-side {
+        width: 100%;
+        border-width: 2px;
+    }
+
+    .words-card {
+        height: 88vh;
+    }
+
+    .words-lily {
+        width: clamp(150px, 34vw, 240px);
+        left: -12%;
+        top: -10%;
+    }
+
+    .words-heading {
+        top: 30px;
+        left: 12%;
+        right: 6%;
+    }
+
+    .words-heading .eyebrow {
+        font-size: 8px;
+        letter-spacing: 2.5px;
+    }
+
+    .words-heading h1 {
+        font-size: clamp(24px, 5.5vw, 34px);
+    }
+
+    .words-scroll {
+        top: 108px;
+        bottom: 20px;
+        left: 6%;
+        right: 6%;
+        padding: 18px 4% 35px;
+    }
+
+    .words-text {
+        font-size: 15px;
+        line-height: 1.9;
+    }
 }
 
-.photo-viewer.active{
-    display:flex;
+@media (max-width: 450px) {
+    .photo-hanger {
+        width: 63px;
+        padding: 4px 4px 14px;
+    }
 
-    animation:viewerFade 0.3s ease;
+    .photo-hanger img { height: 54px; }
+
+    .photo-big-1 { width: 82px; }
+    .photo-big-1 img { height: 72px; }
+    .photo-big-2 { width: 88px; }
+    .photo-big-2 img { height: 77px; }
+    .photo-big-3 { width: 82px; }
+    .photo-big-3 img { height: 72px; }
+
+    .gallery-title { font-size: 20px; }
+
+    .words-layout {
+        grid-template-columns: 5% 90% 5%;
+        padding: 4vh 1vw;
+    }
+
+    .words-side {
+        width: 100%;
+        border-width: 1px;
+    }
+
+    .words-card {
+        height: 88vh;
+    }
+
+    .words-lily {
+        width: clamp(125px, 36vw, 180px);
+        left: -12%;
+        top: -7%;
+    }
+
+    .words-heading {
+        top: 28px;
+        left: 10%;
+        right: 4%;
+    }
+
+    .words-heading h1 { font-size: 24px; }
+
+    .words-scroll {
+        top: 100px;
+        left: 5%;
+        right: 5%;
+        padding: 15px 3% 30px;
+    }
+
+    .words-text {
+        font-size: 14px;
+        line-height: 1.85;
+    }
+
+    .words-signature { font-size: 17px; }
 }
 
-@keyframes viewerFade{
-
-    from{
-        opacity:0;
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
     }
-
-    to{
-        opacity:1;
-    }
-
 }
-
-.viewer-image{
-    max-width:88vw;
-    max-height:88vh;
-
-    object-fit:contain;
-
-    background:white;
-
-    padding:10px;
-
-    box-shadow:
-        0 25px 70px rgba(0,0,0,0.6);
-
-    animation:viewerImageIn 0.4s cubic-bezier(.2,.8,.2,1);
-}
-
-@keyframes viewerImageIn{
-
-    from{
-        transform:scale(0.8) rotate(-3deg);
-    }
-
-    to{
-        transform:scale(1) rotate(0);
-    }
-
-}
-
-.viewer-close{
-    position:absolute;
-
-    top:20px;
-    right:25px;
-
-    width:42px;
-    height:42px;
-
-    border:none;
-    border-radius:50%;
-
-    color:white;
-    background:rgba(255,255,255,0.15);
-
-    font-size:24px;
-
-    cursor:pointer;
-
-    transition:
-        background 0.3s ease,
-        transform 0.3s ease;
-}
-
-.viewer-close:hover{
-    background:rgba(255,255,255,0.3);
-    transform:rotate(90deg);
-}
-
-
-/* =========================
-   WORDS / US PLACEHOLDERS
-========================= */
-
-.placeholder-page{
-    width:100%;
-    height:100%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:white;
-
-    font-size:35px;
-
-    background:#222;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:700px){
-
-    .home-content{
-        gap:12px;
-        padding:15px;
-    }
-
-    .home-card{
-        width:28vw;
-        height:28vw;
-
-        font-size:15px;
-
-        border-radius:15px;
-    }
-
-    .gallery-title{
-        font-size:23px;
-        top:15px;
-    }
-
-    .back-button{
-        top:12px;
-        left:10px;
-
-        padding:7px 11px;
-        font-size:12px;
-    }
-
-    .gallery-photo-area{
-        top:62px;
-    }
-
-    .photo-hanger{
-        width:78px;
-
-        padding:5px 5px 17px 5px;
-    }
-
-    .photo-hanger img{
-        height:68px;
-    }
-
-    .photo-big-1{
-        width:100px;
-    }
-
-    .photo-big-1 img{
-        height:88px;
-    }
-
-    .photo-big-2{
-        width:108px;
-    }
-
-    .photo-big-2 img{
-        height:96px;
-    }
-
-    .photo-big-3{
-        width:100px;
-    }
-
-    .photo-big-3 img{
-        height:88px;
-    }
-
-    .photo-1{ left:2%; top:4%; }
-    .photo-2{ left:22%; top:16%; }
-    .photo-3{ left:39%; top:2%; }
-    .photo-4{ right:2%; top:12%; }
-
-    .photo-5{ left:7%; top:43%; }
-    .photo-6{ left:29%; top:36%; }
-    .photo-7{ right:22%; top:42%; }
-    .photo-8{ right:1%; top:39%; }
-
-    .photo-9{ left:1%; top:72%; }
-    .photo-10{ left:22%; top:68%; }
-    .photo-11{ left:46%; top:67%; }
-    .photo-12{ right:4%; top:73%; }
-
-    .photo-13{ left:13%; top:27%; }
-    .photo-14{ left:56%; top:21%; }
-    .photo-15{ right:12%; top:29%; }
-    .photo-16{ left:38%; top:53%; }
-
-    .photo-3.photo-big-1{
-        left:36%;
-        top:1%;
-    }
-
-    .photo-7.photo-big-2{
-        right:20%;
-        top:40%;
-    }
-
-    .photo-11.photo-big-3{
-        left:44%;
-        top:65%;
-    }
-
-}
-
-
-@media(max-width:450px){
-
-    .photo-hanger{
-        width:63px;
-
-        padding:4px 4px 14px 4px;
-    }
-
-    .photo-hanger img{
-        height:54px;
-    }
-
-    .photo-big-1{
-        width:82px;
-    }
-
-    .photo-big-1 img{
-        height:72px;
-    }
-
-    .photo-big-2{
-        width:88px;
-    }
-
-    .photo-big-2 img{
-        height:77px;
-    }
-
-    .photo-big-3{
-        width:82px;
-    }
-
-    .photo-big-3 img{
-        height:72px;
-    }
-
-    .gallery-title{
-        font-size:20px;
-    }
-
-}
-
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =========================
-     HOME
-========================= -->
+<!-- HOME -->
 
 <section id="home" class="page active">
-
     <div class="home-background"></div>
     <div class="home-overlay"></div>
 
     <div class="home-content">
-
-        <div
-            class="home-card"
-            onclick="showPage('gallery')"
-        >
-            Gallery
-        </div>
-
-        <div
-            class="home-card"
-            onclick="showPage('words')"
-        >
-            Words
-        </div>
-
-        <div
-            class="home-card"
-            onclick="showPage('us')"
-        >
-            Us
-        </div>
-
+        <div class="home-card" onclick="showPage('gallery')">Gallery</div>
+        <div class="home-card" onclick="showPage('words')">Words</div>
+        <div class="home-card" onclick="showPage('us')">Us</div>
     </div>
-
 </section>
 
-
-
-<!-- =========================
-     GALLERY
-========================= -->
+<!-- GALLERY -->
 
 <section id="gallery" class="page">
-
     <div class="gallery-background"></div>
     <div class="gallery-overlay"></div>
 
-    <button
-        class="back-button"
-        onclick="showPage('home')"
-    >
-        ← Back
-    </button>
-
-    <div class="gallery-title">
-        Our Memories
-    </div>
-
-
-    <!-- Wires -->
+    <button class="back-button" onclick="showPage('home')">← Back</button>
+    <div class="gallery-title">Our Memories</div>
 
     <div class="gallery-wire wire-1"></div>
     <div class="gallery-wire wire-2"></div>
     <div class="gallery-wire wire-3"></div>
     <div class="gallery-wire wire-4"></div>
 
-
-    <!-- Bulbs -->
-
     <div class="bulb bulb-1"></div>
     <div class="bulb bulb-2"></div>
     <div class="bulb bulb-3"></div>
     <div class="bulb bulb-4"></div>
 
-
-    <!-- POLAROID WALL -->
-
     <div class="gallery-photo-area">
-
-
-        <div
-            class="photo-hanger photo-1"
-            onclick="openPhoto('photos/1.jpeg')"
-        >
-            <img src="photos/1.jpeg">
-        </div>
-
-
-        <div
-            class="photo-hanger photo-2"
-            onclick="openPhoto('photos/2.jpeg')"
-        >
-            <img src="photos/2.jpeg">
-        </div>
-
-
-        <div
-            class="photo-hanger photo-3 photo-big-1"
-            onclick="openPhoto('photos/3.jpeg')"
-        >
-            <img src="photos/3.jpeg">
-        </div>
-
-
-        <div
-            class="photo-hanger photo-4"
-            onclick="openPhoto('photos/4.jpeg')"
-        >
-            <img src="photos/4.jpeg">
-        </div>
-
-
-        <div
-            class="photo-hanger photo-5"
-            onclick="openPhoto('photos/5.jpeg')"
-        >
-            <img src="photos/5.jpeg">
-        </div>
-
-
-        <div
-            class="photo-hanger photo-6"
-            onclick="openPhoto('photos/6.jpeg')"
-        >
-            <img src="photos/6.jpeg">
-        </div>
-
-
-        <div
-            class="photo-hanger photo-7 photo-big-2"
-            onclick="openPhoto('photos/7.jpeg')"
-        >
-            <img src="photos/7.jpeg">
-        </div>
-
-
-        <div
-            class="photo-hanger photo-8"
-            onclick="openPhoto('photos/8.jpeg')"
-        >
-            <img src="photos/8.jpeg">
-        </div>
-
-
-        <div
-            class="photo-hanger photo-9"
-            onclick="openPhoto('photos/9.jpeg')"
-        >
-            <img src="photos/9.jpeg">
-        </div>
-
-
-        <div
-            class="photo-hanger photo-10"
-            onclick="openPhoto('photos/10.jpeg')"
-        >
-            <img src="photos/10.jpeg">
-        </div>
-
-
-        <div
-            class="photo-hanger photo-11 photo-big-3"
-            onclick="openPhoto('photos/11.jpeg')"
-        >
-            <img src="photos/11.jpeg">
-        </div>
-
-
-        <div
-            class="photo-hanger photo-12"
-            onclick="openPhoto('photos/12.jpeg')"
-        >
-            <img src="photos/12.jpeg">
-        </div>
-
-
-        <!-- NEW PHOTOS -->
-
-        <div
-            class="photo-hanger photo-13"
-            onclick="openPhoto('photos/13.jpeg')"
-        >
-            <img src="photos/13.jpeg">
-        </div>
-
-
-        <div
-            class="photo-hanger photo-14"
-            onclick="openPhoto('photos/14.jpeg')"
-        >
-            <img src="photos/14.jpeg">
-        </div>
-
-
-        <div
-            class="photo-hanger photo-15"
-            onclick="openPhoto('photos/15.jpeg')"
-        >
-            <img src="photos/15.jpeg">
-        </div>
-
-
-        <div
-            class="photo-hanger photo-16"
-            onclick="openPhoto('photos/16.jpeg')"
-        >
-            <img src="photos/16.jpeg">
-        </div>
-	
-	<div
-    		class="photo-hanger photo-17"
-    		onclick="openPhoto('photos/17.jpeg')"
-	>
-   		<img src="photos/17.jpeg">
-	</div>
-
-	<div
-    		class="photo-hanger photo-18"
-    		onclick="openPhoto('photos/18.jpeg')"
-	>
-    		<img src="photos/18.jpeg">
-	</div>
-
-
+        <div class="photo-hanger photo-1" onclick="openPhoto('photos/1.jpeg')"><img src="photos/1.jpeg" alt="Memory 1"></div>
+        <div class="photo-hanger photo-2" onclick="openPhoto('photos/2.jpeg')"><img src="photos/2.jpeg" alt="Memory 2"></div>
+        <div class="photo-hanger photo-3 photo-big-1" onclick="openPhoto('photos/3.jpeg')"><img src="photos/3.jpeg" alt="Memory 3"></div>
+        <div class="photo-hanger photo-4" onclick="openPhoto('photos/4.jpeg')"><img src="photos/4.jpeg" alt="Memory 4"></div>
+        <div class="photo-hanger photo-5" onclick="openPhoto('photos/5.jpeg')"><img src="photos/5.jpeg" alt="Memory 5"></div>
+        <div class="photo-hanger photo-6" onclick="openPhoto('photos/6.jpeg')"><img src="photos/6.jpeg" alt="Memory 6"></div>
+        <div class="photo-hanger photo-7 photo-big-2" onclick="openPhoto('photos/7.jpeg')"><img src="photos/7.jpeg" alt="Memory 7"></div>
+        <div class="photo-hanger photo-8" onclick="openPhoto('photos/8.jpeg')"><img src="photos/8.jpeg" alt="Memory 8"></div>
+        <div class="photo-hanger photo-9" onclick="openPhoto('photos/9.jpeg')"><img src="photos/9.jpeg" alt="Memory 9"></div>
+        <div class="photo-hanger photo-10" onclick="openPhoto('photos/10.jpeg')"><img src="photos/10.jpeg" alt="Memory 10"></div>
+        <div class="photo-hanger photo-11 photo-big-3" onclick="openPhoto('photos/11.jpeg')"><img src="photos/11.jpeg" alt="Memory 11"></div>
+        <div class="photo-hanger photo-12" onclick="openPhoto('photos/12.jpeg')"><img src="photos/12.jpeg" alt="Memory 12"></div>
+        <div class="photo-hanger photo-13" onclick="openPhoto('photos/13.jpeg')"><img src="photos/13.jpeg" alt="Memory 13"></div>
+        <div class="photo-hanger photo-14" onclick="openPhoto('photos/14.jpeg')"><img src="photos/14.jpeg" alt="Memory 14"></div>
+        <div class="photo-hanger photo-15" onclick="openPhoto('photos/15.jpeg')"><img src="photos/15.jpeg" alt="Memory 15"></div>
+        <div class="photo-hanger photo-16" onclick="openPhoto('photos/16.jpeg')"><img src="photos/16.jpeg" alt="Memory 16"></div>
+        <div class="photo-hanger photo-17" onclick="openPhoto('photos/17.jpeg')"><img src="photos/17.jpeg" alt="Memory 17"></div>
+        <div class="photo-hanger photo-18" onclick="openPhoto('photos/18.jpeg')"><img src="photos/18.jpeg" alt="Memory 18"></div>
     </div>
-
 </section>
 
-
-
-<!-- =========================
-     WORDS
-========================= -->
+<!-- WORDS -->
 
 <section id="words" class="page">
+    <button class="back-button" onclick="showPage('home')">← Back</button>
 
-    <div class="placeholder-page">
+    <div class="words-layout">
 
-        <button
-            class="back-button"
-            onclick="showPage('home')"
-        >
-            ← Back
-        </button>
+        <img class="words-side"
+             src="photos/5.jpeg"
+             alt="A favourite memory">
 
-        Words
+        <article class="words-card">
 
-    </div>
+            <!-- Large pink lily -->
+            <svg class="words-lily"
+                 viewBox="0 0 260 290"
+                 xmlns="http://www.w3.org/2000/svg"
+                 role="img"
+                 aria-label="Large pink lily">
 
-</section>
+                <defs>
+                    <linearGradient id="pinkPetal" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#fff7f5"/>
+                        <stop offset="28%" stop-color="#f8cbd4"/>
+                        <stop offset="60%" stop-color="#e99aaa"/>
+                        <stop offset="100%" stop-color="#bd647c"/>
+                    </linearGradient>
 
-
-
-<!-- =========================
-     US
-========================= -->
-
-<section id="us" class="page">
-
-    <div class="placeholder-page">
-
-        <button
-            class="back-button"
-            onclick="showPage('home')"
-        >
-            ← Back
-        </button>
-
-        Us
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     PHOTO VIEWER
-========================= -->
-
-<div
-    id="photoViewer"
-    class="photo-viewer"
-    onclick="closePhoto()"
->
-
-    <button
-        class="viewer-close"
-        onclick="event.stopPropagation(); closePhoto()"
-    >
-        ×
-    </button>
-
-    <img
-        id="viewerImage"
-        class="viewer-image"
-        onclick="event.stopPropagation()"
-    >
-
-</div>
-
-
-
-<script>
-
-/* =========================
-   PAGE NAVIGATION
-========================= */
-
-function showPage(page){
-
-    document
-        .querySelectorAll('.page')
-        .forEach(function(p){
-
-            p.classList.remove('active');
-
-        });
-
-    const selected =
-        document.getElementById(page);
-
-    if(selected){
-
-        selected.classList.add('active');
-
-    }
-
-}
-
-
-/* =========================
-   PHOTO VIEWER
-========================= */
-
-function openPhoto(src){
-
-    const viewer =
-        document.getElementById('photoViewer');
-
-    const image =
-        document.getElementById('viewerImage');
-
-    image.src = src;
-
-    viewer.classList.add('active');
-
-}
-
-
-function closePhoto(){
-
-    document
-        .getElementById('photoViewer')
-        .classList.remove('active');
-
-}
-
-
-/* =========================
-   ESCAPE TO CLOSE PHOTO
-========================= */
-
-document.addEventListener(
-    'keydown',
-    function(event){
-
-        if(event.key === 'Escape'){
-
-            closePhoto();
-
-        }
-
-    }
-);
-
-</script>
-
-</body>
-</html>
+                    <linearGradient id="pinkPetalLight" x1="0" y1="0" x2="0.8" y2="1">
+                        <stop offset="0%" stop-color="#fffaf4"/>
+                        <stop offset="50%" stop-color="#f4b9c5"/>
+                        <stop offset="100%" stop-color="#d77e94"/>
+                    </linearGr
