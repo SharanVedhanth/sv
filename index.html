@@ -1,4 +1,3 @@
-HTML
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +5,11 @@ HTML
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#ead8d0">
-<title>A Letter ❤️</title>
+<title>Happy Birthday ❤️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet">
 
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,40 +37,140 @@ html, body {
     background: #242020 url("background/homeBG.jpg") center / cover no-repeat;
     z-index: 0;
 }
+
 .home-overlay {
     position: absolute;
     inset: 0;
     background: rgba(0,0,0,.18);
     z-index: 1;
 }
+
+/* Birthday heading */
+
+.home-heading {
+    position: absolute;
+    z-index: 4;
+    top: 7%;
+    left: 50%;
+    width: 75%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #fffaf3;
+    text-shadow: 0 3px 18px rgba(0,0,0,.45);
+    animation: birthdayAppear 1.2s ease both;
+}
+
+.home-heading .birthday-small {
+    font-family: "Italiana", Georgia, serif;
+    font-size: clamp(19px, 2.4vw, 32px);
+    letter-spacing: .28em;
+    margin-bottom: 12px;
+}
+
+.home-heading h1 {
+    font-family: "Italiana", Georgia, serif;
+    font-size: clamp(43px, 7vw, 92px);
+    line-height: 1.05;
+    font-weight: normal;
+    letter-spacing: .035em;
+}
+
+.home-heading .birthday-subtitle {
+    font-family: "Italiana", Georgia, serif;
+    font-size: clamp(15px, 2.2vw, 28px);
+    letter-spacing: .06em;
+    margin-top: 20px;
+}
+
+@keyframes birthdayAppear {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 15px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* Homepage side photographs */
+
+.home-side-photo {
+    position: absolute;
+    z-index: 3;
+    top: 37%;
+    width: clamp(125px, 18vw, 245px);
+    height: clamp(175px, 25vw, 325px);
+    object-fit: cover;
+    padding: 9px 9px 27px;
+    background: #fffaf2;
+    border: 1px solid rgba(255,255,255,.8);
+    box-shadow: 0 15px 35px rgba(0,0,0,.35);
+    border-radius: 2px;
+    transition: transform .4s ease, box-shadow .4s ease;
+    animation: homePhotoAppear 1.1s ease both;
+}
+
+.home-side-photo-left {
+    left: 7%;
+    transform: rotate(-7deg);
+    animation-delay: .2s;
+}
+
+.home-side-photo-right {
+    right: 7%;
+    transform: rotate(7deg);
+    animation-delay: .4s;
+}
+
+.home-side-photo-left:hover {
+    transform: rotate(-2deg) translateY(-7px) scale(1.03);
+    box-shadow: 0 23px 45px rgba(0,0,0,.42);
+}
+
+.home-side-photo-right:hover {
+    transform: rotate(2deg) translateY(-7px) scale(1.03);
+    box-shadow: 0 23px 45px rgba(0,0,0,.42);
+}
+
+@keyframes homePhotoAppear {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Homepage navigation cards */
+
 .home-content {
-    position: relative;
-    z-index: 2;
+    position: absolute;
+    z-index: 4;
     width: 100%;
-    height: 100%;
+    bottom: 7%;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 35px;
-    padding: 30px;
+    padding: 20px;
 }
+
 .home-card {
     width: 190px;
-    height: 190px;
+    height: 150px;
     border-radius: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-size: 25px;
-    letter-spacing: px;
+    letter-spacing: 1px;
     cursor: pointer;
     background: rgba(255,255,255,.15);
     border: 1px solid rgba(255,255,255,.35);
     backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
     box-shadow: 0 15px 40px rgba(0,0,0,.22);
     transition: transform .4s ease, background .4s ease;
 }
+
 .home-card:hover {
     transform: translateY(-8px) scale(1.04);
     background: rgba(255,255,255,.24);
@@ -285,69 +388,38 @@ html, body {
 /* LETTER PAGE */
 
 #words {
-    background:
-        radial-gradient(ellipse at 50% 0%, #fff3f1 0%, transparent 48%),
-        linear-gradient(135deg, #f0dcd5, #d6b4a8 55%, #c59e91);
+    background: #f0dcd5 url("background/letter-bg.jpg") center / cover no-repeat;
     color: #63483f;
 }
 
-/* Large side photos + central letter */
+/* Central letter card only */
 
 .words-layout {
     position: absolute;
     inset: 0;
     display: grid;
-    grid-template-columns: minmax(0, 23fr) minmax(0, 54fr) minmax(0, 23fr);
+    grid-template-columns: minmax(0, 60fr);
     align-items: center;
     justify-items: center;
-    gap: 1.2vw;
+    gap: 0;
     padding: 4vh 2vw;
     isolation: isolate;
 }
 
-/* Side photos */
-
-.words-side {
-    display: block;
-    width: 92%;
-    height: auto;
-    max-height: 72vh;
-    aspect-ratio: 3 / 4;
-    justify-self: center;
-    align-self: center;
-    object-fit: contain;
-    background: #fff9f2;
-    border: 8px solid #fff9f2;
-    outline: 1px solid rgba(136,83,76,.4);
-    box-shadow: 0 16px 35px rgba(91,52,48,.24),
-                0 4px 10px rgba(91,52,48,.12);
-    border-radius: 2px;
-    z-index: 1;
-    transform: rotate(-3deg);
-    transition: transform .35s ease, box-shadow .35s ease;
-}
-.words-side-right { transform: rotate(3deg); }
-
-.words-side:hover {
-    transform: rotate(0deg) scale(1.025);
-    box-shadow: 0 22px 42px rgba(91,52,48,.32);
-}
-
-/* Central letter card */
-
 .words-card {
     position: relative;
-    width: 100%;
+    width: 60%;
     height: 84vh;
     max-height: 900px;
     min-height: 0;
-    background: linear-gradient(120deg, rgba(255,255,255,.7), transparent 40%), #fff9f3;
+    background: linear-gradient(120deg, rgba(255,255,255,.12), transparent 40%), #D8DFEF;
     border: 1px solid #e2c5bd;
     box-shadow: 0 22px 60px rgba(102,60,54,.23),
                 inset 0 0 0 7px rgba(225,192,181,.25),
                 inset 0 0 30px rgba(166,102,91,.08);
     z-index: 2;
     overflow: visible;
+    color: #25365C;
 }
 
 /* Pink lily decoration */
@@ -451,17 +523,149 @@ html, body {
     pointer-events: none;
 }
 
+
+
+
+/* LETTER PAGE — GOLDEN STAR GALAXY */
+
+/* Main galaxy: covers the whole letter page */
+.words-star-field {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Smaller galaxy: sits over the card background */
+.words-card-star-field {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+/* Individual stars */
+.words-galaxy-star {
+    position: absolute;
+    display: block;
+    width: var(--word-star-size, 2px);
+    height: var(--word-star-size, 2px);
+    border-radius: 50%;
+    background: #ffe8a6;
+    opacity: var(--word-star-opacity, 0.5);
+    box-shadow:
+        0 0 4px 1px rgba(255, 221, 145, 0.28),
+        0 0 9px 1px rgba(255, 207, 115, 0.12);
+
+    animation:
+        wordsStarTwinkle
+        var(--word-star-speed, 3s)
+        ease-in-out
+        var(--word-star-delay, 0s)
+        infinite alternate;
+}
+
+@keyframes wordsStarTwinkle {
+    0% {
+        opacity: var(--word-star-dim, 0.2);
+        transform: scale(0.75);
+    }
+
+    100% {
+        opacity: var(--word-star-opacity, 0.6);
+        transform: scale(1.35);
+    }
+}
+
+/* Keep text above the stars */
+.words-heading,
+.words-scroll {
+    z-index: 4;
+}
+
+/* Keep the lily above everything on the card */
+.words-lily {
+    z-index: 6;
+}
+
+/* Keep stars from intercepting clicks or scrolling */
+.words-star-field,
+.words-card-star-field,
+.words-star-field *,
+.words-card-star-field * {
+    pointer-events: none;
+}
+
+
+/* FLOATING LILY PETALS — LETTER PAGE */
+.petal-layer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 7;
+}
+
+.floating-petal {
+    position: absolute;
+    top: -40px;
+    width: 12px;
+    height: 20px;
+    border-radius: 90% 10% 80% 20%;
+    background: linear-gradient(135deg, #fff0f3, #e9a2b5 70%, #c96e8c);
+    opacity: 0;
+    box-shadow: 0 0 8px rgba(233, 162, 181, 0.2);
+    animation: petalFall var(--fall-duration) linear var(--fall-delay) infinite;
+}
+
+@keyframes petalFall {
+    0% {
+        transform: translate3d(0, -30px, 0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    85% {
+        opacity: 0.55;
+    }
+    100% {
+        transform: translate3d(var(--drift), 105vh, 0) rotate(420deg);
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .floating-petal {
+        animation: none;
+        display: none;
+    }
+}
+
+
 /* RESPONSIVE */
 
-@media (max-width: 700px) {
-    .home-content { gap: 12px; padding: 15px; }
+@media (max-width: 900px) {
+    .home-heading { top: 6%; width: 90%; }
+    .home-side-photo {
+        top: 38%;
+        width: clamp(105px, 19vw, 170px);
+        height: clamp(150px, 28vw, 235px);
+    }
+    .home-side-photo-left { left: 4%; }
+    .home-side-photo-right { right: 4%; }
+
+    .home-content {
+        bottom: 5%;
+        gap: 18px;
+    }
     .home-card {
-        width: 38vw;
-        height: 38vw;
-        max-width: 190px;
-        max-height: 190px;
-        font-size: 17px;
-        border-radius: 15px;
+        width: 160px;
+        height: 125px;
+        font-size: 21px;
     }
 
     .gallery-title { font-size: 23px; top: 15px; }
@@ -495,13 +699,10 @@ html, body {
     .photo-17 { right:8%; top:2%; }
     .photo-18 { right:28%; top:1%; }
 
-    .words-layout {
-        grid-template-columns: 8% 84% 8%;
-        gap: 0;
-        padding: 4vh 1vw;
+    .words-card {
+        width: 76%;
+        height: 88vh;
     }
-    .words-side { width: 100%; max-height: 45vh; border-width: 2px; }
-    .words-card { height: 88vh; }
     .words-lily { width: clamp(150px,34vw,240px); left: -12%; top: -10%; }
     .words-heading { top: 30px; left: 12%; right: 6%; }
     .words-heading .eyebrow { font-size: 8px; letter-spacing: 2.5px; }
@@ -510,7 +711,49 @@ html, body {
     .words-text { font-size: 15px; line-height: 1.9; }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 600px) {
+    .home-heading {
+        top: 6%;
+        width: 94%;
+    }
+    .home-heading .birthday-small {
+        font-size: clamp(15px, 4vw, 22px);
+        letter-spacing: .2em;
+        margin-bottom: 9px;
+    }
+    .home-heading h1 {
+        font-size: clamp(34px, 9vw, 55px);
+    }
+    .home-heading .birthday-subtitle {
+        font-size: clamp(13px, 3.5vw, 18px);
+        margin-top: 13px;
+    }
+
+    .home-side-photo {
+        top: 37%;
+        width: 29vw;
+        height: 40vw;
+        max-height: 210px;
+        padding: 5px 5px 17px;
+    }
+    .home-side-photo-left { left: 5%; }
+    .home-side-photo-right { right: 5%; }
+
+    .home-content {
+        bottom: 6%;
+        gap: 12px;
+        padding: 12px;
+    }
+    .home-card {
+        width: 38vw;
+        height: 24vw;
+        max-width: 170px;
+        max-height: 115px;
+        min-height: 85px;
+        font-size: 17px;
+        border-radius: 15px;
+    }
+
     .photo-hanger { width: 63px; padding: 4px 4px 14px; }
     .photo-hanger img { height: 54px; }
     .photo-big-1 { width: 82px; }
@@ -521,62 +764,35 @@ html, body {
     .photo-big-3 img { height: 72px; }
     .gallery-title { font-size: 20px; }
 
-
-.words-layout {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: center;
-    justify-items: center;
-    gap: 0;
-    padding: 4vh 3vw;
-    isolation: isolate;
-}
-
-.words-side {
-    display: block;
-    position: absolute;
-    width: 32vw;
-    height: auto;
-    max-height: 28vh;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-    border: 4px solid #fff9f2;
-    outline: 1px solid rgba(136,83,76,.4);
-    box-shadow: 0 8px 20px rgba(91,52,48,.24);
-    border-radius: 2px;
-    z-index: 3;
-}
-
-.words-side-left {
-    left: 1vw;
-    top: 10vh;
-    transform: rotate(-7deg);
-}
-
-.words-side-right {
-    right: 1vw;
-    bottom: 8vh;
-    transform: rotate(7deg);
-}
-
-.words-card {
-    position: relative;
-    width: 100%;
-    height: 88vh;
-    max-height: none;
-    min-height: 0;
-    z-index: 2;
-}
-
-
+    .words-layout {
+        grid-template-columns: 1fr;
+        padding: 4vh 3vw;
+    }
+    .words-card {
+        width: 94%;
+        height: 88vh;
+        max-height: none;
+    }
     .words-lily { width: clamp(125px,36vw,180px); left: -12%; top: -7%; }
     .words-heading { top: 28px; left: 10%; right: 4%; }
     .words-heading h1 { font-size: 24px; }
     .words-scroll { top: 100px; left: 5%; right: 5%; padding: 15px 3% 30px; }
     .words-text { font-size: 14px; line-height: 1.85; }
     .words-signature { font-size: 17px; }
+}
+
+@media (max-height: 650px) and (min-width: 601px) {
+    .home-heading { top: 3%; }
+    .home-heading .birthday-small { margin-bottom: 5px; }
+    .home-heading .birthday-subtitle { margin-top: 8px; }
+    .home-side-photo {
+        top: 34%;
+        height: 37vh;
+        width: auto;
+        aspect-ratio: 3 / 4;
+    }
+    .home-content { bottom: 3%; }
+    .home-card { height: 95px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -586,16 +802,398 @@ html, body {
         transition-duration: .01ms !important;
     }
 }
+
+
+/* FIX: Four homepage photos */
+
+.home-photo-stack {
+    position: absolute;
+    top: 37%;
+    z-index: 3;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 29%;
+}
+
+.home-photo-stack-left {
+    left: 3%;
+}
+
+.home-photo-stack-right {
+    right: 3%;
+}
+
+.home-photo-stack img {
+    display: block;
+    width: calc(50% - 5px);
+    height: clamp(145px, 20vw, 260px);
+    object-fit: cover;
+    padding: 7px 7px 20px;
+    background: #fffaf2;
+    border: 1px solid rgba(255,255,255,.8);
+    box-shadow: 0 10px 25px rgba(0,0,0,.35);
+    border-radius: 2px;
+}
+
+/* Keep left.jpeg unchanged */
+.home-photo-stack-left img:first-child {
+    width: calc(50% - 5px);
+}
+
+.home-photo-stack-left img:nth-child(2) {
+    width: calc(50% + 15px);
+    flex-shrink: 0;
+    object-fit: contain;
+    object-position: center;
+}
+
+@media (max-width: 600px) {
+    .home-photo-stack {
+        top: 39%;
+        width: 43%;
+        gap: 5px;
+    }
+
+    .home-photo-stack-left {
+        left: 2%;
+    }
+
+    .home-photo-stack-right {
+        right: 2%;
+    }
+
+    .home-photo-stack img {
+        height: 27vw;
+        padding: 4px 4px 12px;
+    }
+}
+
+
+
+/* =================================
+   SURPRISE OPENING SCREEN
+================================= */
+
+#surpriseScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 24px;
+    background:
+        radial-gradient(ellipse at 50% 45%,
+            rgba(75, 69, 112, .42), transparent 60%),
+        linear-gradient(145deg, #080d1d, #17152f 55%, #090d1c);
+    color: #fff8ed;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .8s ease, visibility .8s ease;
+}
+
+#surpriseScreen.leaving {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.surprise-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.surprise-star {
+    position: absolute;
+    width: var(--star-size, 3px);
+    height: var(--star-size, 3px);
+    border-radius: 50%;
+    background: #fff3c7;
+    box-shadow: 0 0 8px 2px rgba(255, 224, 155, .5);
+    animation: surpriseTwinkle var(--star-speed, 3s) ease-in-out infinite alternate;
+    animation-delay: var(--star-delay, 0s);
+}
+
+@keyframes surpriseTwinkle {
+    from {
+        opacity: .2;
+        transform: scale(.65);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+.surprise-content {
+    position: relative;
+    z-index: 2;
+    width: min(600px, 100%);
+    text-align: center;
+    animation: surpriseContentIn 1.2s ease both;
+}
+
+.surprise-symbol {
+    display: block;
+    margin-bottom: 25px;
+    color: #f3dba5;
+    font-size: clamp(30px, 5vw, 48px);
+    animation: surpriseGlow 3s ease-in-out infinite alternate;
+}
+
+.surprise-message {
+    margin-bottom: 34px;
+    font-family: "Italiana", Georgia, serif;
+    font-size: clamp(32px, 6vw, 59px);
+    font-weight: normal;
+    line-height: 1.3;
+    text-shadow: 0 0 30px rgba(226, 193, 255, .2);
+}
+
+.surprise-button {
+    padding: 16px 30px;
+    border: 1px solid rgba(255, 235, 199, .8);
+    border-radius: 50px;
+    background: linear-gradient(135deg, #f6e4bd, #dfc18d);
+    color: #242039;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px;
+    letter-spacing: .04em;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(240, 209, 157, .18);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.surprise-button:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 0 38px rgba(240, 209, 157, .4);
+}
+
+@keyframes surpriseContentIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes surpriseGlow {
+    from {
+        opacity: .7;
+        text-shadow: 0 0 10px rgba(243, 219, 165, .2);
+    }
+    to {
+        opacity: 1;
+        text-shadow: 0 0 28px rgba(243, 219, 165, .7);
+    }
+}
+
+/* Celebration burst */
+
+#celebrationBurst {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.celebration-particle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    opacity: 0;
+    font-size: var(--particle-size, 22px);
+    animation: celebrationFly 2.5s cubic-bezier(.12,.65,.3,1) forwards;
+    animation-delay: var(--particle-delay, 0s);
+    will-change: transform, opacity;
+}
+
+@keyframes celebrationFly {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.2) rotate(0deg);
+    }
+    12% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform:
+            translate(
+                calc(-50% + var(--particle-x)),
+                calc(-50% + var(--particle-y))
+            )
+            scale(.7)
+            rotate(var(--particle-rotation));
+    }
+}
+
+@media (max-width: 600px) {
+    .surprise-message {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .surprise-button {
+        padding: 15px 24px;
+        font-size: 15px;
+    }
+}
+
+
+
+/* Falling white stars on the opening screen */
+
+.falling-star {
+    position: absolute;
+    top: -20px;
+    width: var(--fall-size, 3px);
+    height: var(--fall-size, 3px);
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow:
+        0 0 5px 1px rgba(255, 255, 255, 0.65),
+        0 0 12px 2px rgba(210, 225, 255, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    animation:
+        starFall var(--fall-duration, 5s) linear
+        var(--fall-delay, 0s) infinite,
+        fallingStarTwinkle 1.3s ease-in-out infinite alternate;
+}
+
+@keyframes starFall {
+    0% {
+        transform: translate3d(0, -20px, 0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.95;
+    }
+    85% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate3d(var(--fall-drift, 30px), 105vh, 0);
+        opacity: 0;
+    }
+}
+
+@keyframes fallingStarTwinkle {
+    from {
+        filter: brightness(0.65);
+    }
+    to {
+        filter: brightness(1.5);
+    }
+}
+
+
+/* Shooting stars — background only */
+
+.shooting-star {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 2px;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.25) 35%,
+        #ffffff
+    );
+    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.65);
+    transform: rotate(-35deg);
+    animation: shootingStarFlight 1.1s ease-out forwards;
+}
+
+@keyframes shootingStarFlight {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(-35deg) scaleX(0.5);
+    }
+    12% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 0.9;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-260px, 180px) rotate(-35deg) scaleX(1.2);
+    }
+}
+
 </style>
 </head>
 
 <body>
+
+
+<!-- SURPRISE OPENING SCREEN -->
+
+<div id="surpriseScreen">
+    <div class="surprise-stars" id="surpriseStars"></div>
+
+    <div class="surprise-content">
+        <span class="surprise-symbol">✧ ✨ ✧</span>
+
+        <h1 class="surprise-message">
+            I've made something special for you… 💗
+        </h1>
+
+        <button
+            class="surprise-button"
+            type="button"
+            onclick="openSurprise()">
+            Open Your Surprise ✨
+        </button>
+    </div>
+</div>
+
+<div id="celebrationBurst" aria-hidden="true"></div>
+	
 
 <!-- HOME -->
 
 <section id="home" class="page active">
     <div class="home-background"></div>
     <div class="home-overlay"></div>
+
+    <div class="home-heading">
+        <div class="birthday-small">HAPPY BIRTHDAY</div>
+        <h1>SAMMMUUUU!!!!!!!!</h1>
+        <div class="birthday-subtitle">I LOVEEE YOUU SOOO MUCHHHHH!!!!!!</div>
+    </div>
+
+    <!-- LEFT PHOTOS -->
+<div class="home-photo-stack home-photo-stack-left">
+    <img src="photos/left.jpeg" alt="Left photo">
+    <img src="photos/left1.jpeg" alt="Second left photo">
+</div>
+
+<!-- RIGHT PHOTOS -->
+<div class="home-photo-stack home-photo-stack-right">
+    <img src="photos/right1.jpeg" alt="Second right photo">
+    <img src="photos/right.jpeg" alt="Right photo">
+</div>
 
     <div class="home-content">
         <div class="home-card" onclick="showPage('gallery')">Gallery</div>
@@ -653,18 +1251,26 @@ html, body {
 
 <!-- LETTER PAGE -->
 
+
 <section id="words" class="page">
+<div class="petal-layer" id="petalLayer" aria-hidden="true"></div>
     <button class="back-button" onclick="showPage('home')">← Back</button>
+
+<!-- Stars across the entire letter page -->
+<div class="words-star-field" id="wordsStarField" aria-hidden="true"></div>
+
+   
 
     <div class="words-layout">
 
-        <!-- LEFT PHOTO: photos/left.jpeg -->
-        <img class="words-side"
-             src="photos/left.jpeg"
-             alt="Left letter photograph">
-
         <!-- LETTER CARD -->
         <article class="words-card">
+
+	<!-- Faint stars over the letter card -->
+<div class="words-card-star-field" id="wordsCardStarField" aria-hidden="true"></div>
+
+
+		<!-- Golden star galaxy -->
 
             <!-- Decorative lily -->
             <svg class="words-lily"
@@ -694,7 +1300,7 @@ html, body {
 
                 <path d="M130 145 C128 190 112 230 86 276"
                       fill="none" stroke="url(#lilyStem)" stroke-width="7" stroke-linecap="round"/>
-                
+
                 <path d="M113 207 C65 180 43 193 39 210 C66 225 93 222 113 207Z"
                       fill="#688755" stroke="#3f603b" stroke-width="1.5"/>
                 <path d="M113 207 Q75 205 43 210"
@@ -756,8 +1362,6 @@ html, body {
 
                     <p>To my favourite person,</p>
 
-                    <!-- PASTE YOUR LETTER HERE -->
-
                     <p>Happy Birthday SAMMYYYWIFEYYYY 🤭🎀
 I WAS SOO EXCITED FOR THIS DAY😁MY FAVOURITE DAY, MY PHONE KA PASSWORD🤭, MY SAMMUU'S BIRTHDAY 😁🫶🏻🤍
 BEFORE YOU READ THIS I JUST WANNA APOLOGISE IN THE BEGINNING ITSELF I REALLY WISH I COULD DO MORE I COULDN'T GET YOU ANY COOL GIFTS FOR THIS YEAR BUT TRUST ME I REALLY WANTED TO SOO THIS IS ALL I COULD MANAGE FOR NOW WITH THE LITTLE  TIME I'VE GOT MORE ON THIS BELOW BUT NEXT YEAR IT WON'T BE THE SAME BECAUSE I'LL HAVE A LOT MORE TIME ALSOO SAMMUU THIS PARAGRAPH IS LONG LIKE REALLY REALLY REALLY LONGGGGGGGGGGGGGGGGGG
@@ -783,15 +1387,15 @@ I LOVEEE YOUUU more than myself i LOVEEEE YOUUU more than anything in this world
 OUT OF ALL THE BOYS IN THIS WORLD YOU'VE LET ME IN TO YOUR BEAUTIFUL LIFEE, I DONT EVER WANT TO LEAVE YOUR LIFEEE ♥️
 Im soo grateful that its me that gets to admire your photos and videos it's me that gets to spam some 100 compliments in your dms without getting blocked😂everytime you send me something  ,it's me that gets to compliment youu thousands of times and still feel like its not enough 🤭, it's me that gets to send to a love you message whenever I have the opportunity to, it's me that gets to know more and more about youu and your family and all the things you like,it's me that gets hear about your dreams and all the things that you wanna do and hopefully it's me who'll be there watching you and admiring you when you achieve all the things you'd thought of,it's me that gets to say yeaa that's my wife(my biggest flex🥹)
 I can't express how much you mean to me sammu, how often your name visits my thoughts how my heart grows softer when I think about you the way you care for me the way you lovee me the way you worry me about the smallest things all these never go unnoticed everytime I wonder what i did to deserve a soul like yours your soul is the most beautifull one ever,for every day the heart finds another reason to be grateful, another reason to smile another reason to lovee youu more than the minute before 🤍</p>
+
                     <p>It is an HONOUR to LOVEEE YOUUUU and to be a part of your lifee, being in lovee with youu is the biggest flex i can throw,you're the greatest treasure of my lifeeee everything about youu makes me feel grateful that I got to exist in the same time and somehow be your man
 your smile brightens my dayy for you have the prettiest smile ever, you listen to me with genuine interest even when i talk about some random stuff, you support me in everything, you give me the best advice whenever I ask , you answer every one of my silly curious questions 😭, YOU HAVE THE MOST BEAUTIFUL EYES, you are sooo thoughtfull about everything, you're the most loyal girl ever 🥹i remember how you said once that you don't go to a spa to get a head massage because you don't some guy to touch your head except me omg how perfect are youu🥹🥹 the most beautiful thing about your soul is you've accepted me as I am you don't care if im handsome enough for you if im good enough for youu you've loved for me for the man I am and that means the most to me and that inspires me to keep changing and being better for youu and never stop putting in the effort because my baby deserves the best version of me I'll do whatever i can to become that, you're soo creative sammuu you remind me of my mom your creativity is just amazing it never fails to surprise me , the way you paint stuff omg your paintings are soo soo cool I wish i could paint like that anyways i will paint like that in the future because you promised to teach me painting while holding my hand🤭🤭, you're soo smart and incredibly hardworking your dedication towards your goals is unbelievable there's no way someone like you could fail in anything, i pray for your success and for you to achieve your dreams more than i pray for myself
 when I reach God i have to ask him what did I do that he likes so much that he felt I deserved youu  you're always there when i need youu, you're my comfort you're my peacee, you're my reason to smilee you make me feel complete, YOURE MY ONE AND ONLY LOVEE i never want to losee you, i don't want a future if you're not a part of it. I'll do anything for us so that we are able to live in the future that we always talk about,
 i just can't wait to spend all my time with youu that's just my favourite thing to do, i just LOVEEEE you soo muchh, you're the besttt girll EVERR and the prettiesttttt omgggg SOOOO PRETTYYYYY you areeee, BANA PAAYA NHI ABH TAK KHUDA TUMHSE KOI PYAARA 🤭everytime i see your photos i want to pull you out of it and hug you tightly nothing more beautiful than youuuu you're peak beauty, YOUR EYES areee sooo beautiful i could stare at them for days i can't wait to ADMIREEE themmm 🥹,your SMILEEE is sooo CUTEEEE it makes me SMILEEE just by looking at youuu, im sooo in LOVEEE with your cheeks🤭when you smileee and your cheeks pop out like that SOOOOO cuteeeeeeee i can't wait to kiss themm, and your Hair omgggg soooo SOOOO SOOOO beautifull theyyy AREEEE i can't wait to play with themm , your voice is sooo sweettt can't wait for us to speak on calls soo i can hear your sweetestt voiceee more🤭 it'll be the best i don't think any of our calls will be for less than an hour if we start speaking hopefully that day comes soon enough  when we're both free and can speak on a call,Everything about your FACEEE is soooo PERFECTTTTTTTTT🤭🤭,i LOVEEEE every single thing about it 😁, the amount of times ive spent watching your prettiest videos and photosss is unreal and everytime I do you gotten prettier you're smile has gotten brighter you're face glows more than ever, everytime I seee your smile i feel like taking you out of that picture and kissing your cheeks the people who get to see youu aree soo luckyy just looking at you makes me soo happyy, whenever i don't feel right  you're gallery has been my therapy you're gallery has been my favourite placeee i get lost looking at your photos and admiring youuu everytime you send me a photo and video im always out of words to compliment youuu because all those compliments are still not even close to what I'm trying to describe you're prettier than prettiest, i don't understand how someone can be that prettyy and be the kindest and humblest and strongest and sweetestt person OMGGG i LOVEEEEE YOUUUUUU soooooooooo muchhhhh
 the day you told me about your childhood and your myocardial ischemia your strength to handle stuffs like that i never thought someone can be as strong as youu your way dealing with stuffs god gives the strongest battles to his toughest soldiers you've faced everything that was thrown at you with sooo much strength and courage i will always keep calling you my strongest baby i can't even imagine how hard it must be for you to handle those things especially as a kid i wish i could take all that pain away from you and put it into my body
-you deserve everything in this world sammuu because you fought your way through it all you're the STRONGEST girl in my world and you will always be
+you deserve everything in this world sammuu because you fought your way through it all you're the STRONGEST girl in my world and you will always be</p>
 
-
-I can't wait for us to live the life we always talk about and do the things we talk about together
+                    <p>I can't wait for us to live the life we always talk about and do the things we talk about together
 I can't wait for us to go to some mountain as a trip sitting there and yapping for hours we'll hold each other's hand talk about life without having a single worry about anything i can't wait to be romantic with you, put my hand around your waist just the way you like it for most of the time we spend sitting next to each other I would probably be kissing you on the side of your head, we'll swim in some waterfalls we'll fall asleep on each other's shoulders, sitting closee and we'll have coffee together 🤭,feeding each other ice cream, we'll go on ice cream dates randomly in the middle of the night🤭 we'll go to ice cream dates when we're happy when we're sad when we've had a argument we'll just go to a ice cream date without any reason also i haven't tried of the good ice creams soo make sure to feed me tasty tasty ice creams 😁
 watching you read your favourite books and telling me everything about it omgg i lovee that soo muchh, we'll play all the sports and gamess together 🤭(you'll beat me in all of them😭 )can't wait for us to travel  to different countries and you'll paint a painting for every country we go🤭soo cooll!!!! Alsooo when we grow old we spoke about this someday you said you'll paint something and I'll have half of that painting and you'll have the other half omg i lovee that idea smm I'll keep my half of the painting with me all the time sooo that it feels like i have you by my side all of the time 🤭
 We'll Go to Some Country with the snow that's a must for me ive always liked snow I've never seen it still but i just know it'll be the best ever feeling when we're there in the snow we'll build a snowman we'll have snow fights it'll be sooo sooo coooll🥹🥹😁🤭
@@ -801,6 +1405,7 @@ we'll build a house and I'll make sure we have a library with sooo many cool boo
 Getting you liliess soo oftenn🤭,exploring different countries with youuu, clicking your picture wherever we goo, roaming around the streets of the country in the middle of the night, going to Starbucks together and getting your favourite drink, going to crossword and buying a lot of books and spending a lot of time theree and then going to artzo India and buying whatever stationary you think is cooll😁😁, going to miniso and watching you being the cutest girll 🤭,getting you your favourite chocolates lindt amano and fabelle,we'll have a really cool balcony where we'll grow your favourite plants,
 we'll be up at 3 am baking something🤭can't wait to read your favourite books and talk to you about it,kissing your forehead after tieing the wedding knot,i can't wait to put my hair around your waist while we walk, we'll read books together, omg one day you'd return from work and you'll sit on my lap and explain everything about your day while I keep moving my hands around your waist 🥹🥹and then we'll sleep and I'll make sure your leg is on on top of mine and I'll get play with your prettiest face and those cutest cheeks of yours I'll kiss your forehead omggg i can't wait to kiss you on your forehead 🤭 thinking about these makes me sooo excited to live the next day im never been this excited for days to end soo that time passes quickly and you're a neurosurgeon and i have some job to make some money and we get married,we will be whatever we always dreamed of being , we are together and we have a bond that doesn't break, i just can't wait to take care of youu lovee you in every way possible never make you feel less of yourself always be there for you whenever you're low i wanna spend all of my lives with you not just this one i want to help you in anyway possible because you will be a neurosurgeon in the future you'll have a very hectic life in those times I'll do everything I can to not be a burden for you and give you as much relief as possible I'll treat like you my queen as I always have and always wanted to I'll cook for youu help you in anyway possible and just try to make your life easy because being a doctor is not easy😭, most importantly i can't wait to marry you the way you've always wanted to, near a beach we'll play in the water get scolded by our parents for doing bakchodi 😂, we'll be taking polaroid pictures with the sea we'll be doing cute cute stuffs, I'll be acting soo shy when they take solo pictures of me 😭, with all our favourite people there we'll marry and become one officially unofficially thoo we're already married 😁🤭
 That'll be the happiest day for sure the day SAMHITA VEDHAM becomes SAMHITA VEDHANTH.</p>
+
                     <p>I just wanna say that YOU'RE THE MOST PERFECT GIRL and all i want is to be YOURS that's all I wish for I JUST WANNA BE YOURS AND I WANT US TO STAY THAT WAY TILL I DIE, YOU'RE THE BEST THING THAT HAS HAPPENED IN MY LIFEE.
 WITH YOU IM SOMETHING IM SOMEONE WHO MEANS SOMETHING YOU MAKE ME FEEL HEARD YOU MAKE ME FEEL IMPORTANT , WITHOUT YOU IM NOTHING
 I WANNA BE YOURS FOREVER 🥹,IF I COULD DIVIDE MY LIFE IN INTO TWO PARTS IT WOULD BE BEFORE SAMMUU AND AFTER SAMMUU YOU AREEE AND YOU WILL BE THE IMPORTANT PART OF MY LIFE I'VE CHANGE A LOT AFTER YOU,FOR YOU , FOR THE BETTER AND I'M SO HAPPY AND GRATEFUL YOU ARE THE REASON I'M EXCITED TO WAKE UP THE NEXT DAY WITH THE HOPES THAT I'LL GET TO SPEND WITH TIME WITH YOUU
@@ -817,11 +1422,9 @@ WISH ALL YOUR DREAMS COME TRUE
 WISH YOU ACHIEVE EVERYTHING YOU'VE DREAMED OFF
 WISH YOU MAKE YOUR GRANDPARENTS AND PARENTS PROUD (THEY ALREADY AREE SOOO PROUD OF YOUU)
 WISH YOU TICK OFF YOUR "CAN'T WAIT TO DO LIST"
-WISH WE'RE ALWAYS THERE FOR EACH OTHER NI MATTER WHAT HAPPENS AND WE LIVE THE FUTURE WE TALK ABOUT SOO CASUALLY
+WISH WE'RE ALWAYS THERE FOR EACH OTHER NO MATTER WHAT HAPPENS AND WE LIVE THE FUTURE WE TALK ABOUT SOO CASUALLY
 LOVEEEEEEE YOUUUU SOOO MUCHHHH SAMMMMMYYYYYVVAAVEEEEEEEE 🩷 🫶🏻🤍🌷
 YOUR HUBBY LOVESS YOUU🤭💋.</p>
-
-                    <!-- END OF YOUR LETTER -->
 
                     <p>With all my love,</p>
                     <div class="words-signature">Yours ❤️</div>
@@ -831,14 +1434,171 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
 
         </article>
 
-        <img class="words-side words-side-right"
-             src="photos/right.jpeg"
-             alt="Right letter photograph">
-
     </div>
 </section>
 
 <script>
+
+/* Create the opening-screen stars */
+(function createSurpriseStars() {
+    const field = document.getElementById("surpriseStars");
+
+    if (!field) return;
+
+    for (let i = 0; i < 65; i++) {
+        const star = document.createElement("span");
+        star.className = "surprise-star";
+
+        star.style.left = Math.random() * 100 + "%";
+        star.style.top = Math.random() * 100 + "%";
+        star.style.setProperty(
+            "--star-size",
+            (1.5 + Math.random() * 3) + "px"
+        );
+        star.style.setProperty(
+            "--star-speed",
+            (1.5 + Math.random() * 3) + "s"
+        );
+        star.style.setProperty(
+            "--star-delay",
+            (Math.random() * 4) + "s"
+        );
+
+        field.appendChild(star);
+    }
+})();
+
+
+
+/* Create falling stars on the opening screen */
+(function createFallingStars() {
+    const field = document.getElementById("surpriseStars");
+
+    if (!field) return;
+
+    for (let i = 0; i < 32; i++) {
+        const star = document.createElement("span");
+        star.className = "falling-star";
+
+        star.style.left = Math.random() * 100 + "%";
+
+        star.style.setProperty(
+            "--fall-size",
+            (2 + Math.random() * 2.5) + "px"
+        );
+
+        star.style.setProperty(
+            "--fall-duration",
+            (3.5 + Math.random() * 2.5) + "s"
+        );
+
+        star.style.setProperty(
+            "--fall-delay",
+            (-Math.random() * 6) + "s"
+        );
+
+        star.style.setProperty(
+            "--fall-drift",
+            (Math.random() * 100 - 50) + "px"
+        );
+
+        field.appendChild(star);
+    }
+})();
+
+
+/* Shooting stars: 10 every 5 seconds */
+(function startShootingStars() {
+    const field = document.getElementById("surpriseStars");
+
+    if (!field) return;
+
+    function launchShootingStar() {
+        // Stop creating stars once the welcome screen is leaving.
+        const screen = document.getElementById("surpriseScreen");
+
+        if (!screen || screen.classList.contains("leaving")) return;
+
+        for (let i = 0; i < 10; i++) {
+            const star = document.createElement("span");
+            star.className = "shooting-star";
+
+            star.style.left = (20 + Math.random() * 100) + "%";
+            star.style.top = (Math.random() * 75) + "%";
+            star.style.animationDelay = (Math.random() * 1.2) + "s";
+
+            field.appendChild(star);
+
+            star.addEventListener("animationend", () => {
+                star.remove();
+            }, { once: true });
+        }
+    }
+
+    launchShootingStar();
+    const shootingStarInterval = window.setInterval(() => {
+        const screen = document.getElementById("surpriseScreen");
+
+        if (!screen || screen.classList.contains("leaving")) {
+            window.clearInterval(shootingStarInterval);
+            return;
+        }
+
+        launchShootingStar();
+    }, 5000);
+})();
+
+
+/* Reveal the homepage with a celebration */
+function openSurprise() {
+    const screen = document.getElementById("surpriseScreen");
+    const burst = document.getElementById("celebrationBurst");
+
+    if (!screen || screen.classList.contains("leaving")) return;
+
+    screen.classList.add("leaving");
+
+    const symbols = ["✨", "⭐", "💗", "🎉", "💖", "✦", "🌟"];
+
+    for (let i = 0; i < 65; i++) {
+        const particle = document.createElement("span");
+        particle.className = "celebration-particle";
+        particle.textContent =
+            symbols[Math.floor(Math.random() * symbols.length)];
+
+        particle.style.setProperty(
+            "--particle-x",
+            (Math.random() * 110 - 55) + "vw"
+        );
+        particle.style.setProperty(
+            "--particle-y",
+            (Math.random() * 110 - 55) + "vh"
+        );
+        particle.style.setProperty(
+            "--particle-size",
+            (14 + Math.random() * 20) + "px"
+        );
+        particle.style.setProperty(
+            "--particle-rotation",
+            (Math.random() * 540 - 270) + "deg"
+        );
+        particle.style.setProperty(
+            "--particle-delay",
+            (Math.random() * 0.35) + "s"
+        );
+
+        burst.appendChild(particle);
+    }
+
+    window.setTimeout(() => {
+        screen.remove();
+    }, 850);
+
+    window.setTimeout(() => {
+        burst.replaceChildren();
+    }, 3200);
+}
+
 function showPage(pageId) {
     document.querySelectorAll(".page").forEach(page => {
         page.classList.remove("active");
@@ -873,9 +1633,82 @@ function closePhoto() {
 document.addEventListener("keydown", event => {
     if (event.key === "Escape") closePhoto();
 });
+
+
+/* Create stars for the letter page and card */
+(function createWordsStarGalaxy() {
+    function fillStarField(field, count, minBrightness, maxBrightness) {
+        if (!field) return;
+
+        for (let i = 0; i < count; i++) {
+            const star = document.createElement("span");
+            star.className = "words-galaxy-star";
+
+            star.style.left = Math.random() * 100 + "%";
+            star.style.top = Math.random() * 100 + "%";
+
+            const size = 1 + Math.random() * 2.2;
+            const brightness =
+                minBrightness + Math.random() * (maxBrightness - minBrightness);
+            const dimBrightness = 0.08 + Math.random() * 0.15;
+
+            star.style.setProperty("--word-star-size", size + "px");
+            star.style.setProperty("--word-star-opacity", brightness);
+            star.style.setProperty("--word-star-dim", dimBrightness);
+            star.style.setProperty(
+                "--word-star-speed",
+                (2 + Math.random() * 4) + "s"
+            );
+            star.style.setProperty(
+                "--word-star-delay",
+                (-Math.random() * 5) + "s"
+            );
+
+            field.appendChild(star);
+        }
+    }
+
+    fillStarField(
+        document.getElementById("wordsStarField"),
+        115,
+        0.3,
+        0.75
+    );
+
+    fillStarField(
+        document.getElementById("wordsCardStarField"),
+        28,
+        0.12,
+        0.3
+    );
+})();
+
+
+
+/* Create gentle floating petals on the letter page */
+document.addEventListener("DOMContentLoaded", function () {
+    const layer = document.getElementById("petalLayer");
+    if (!layer || layer.children.length > 0) return;
+
+    for (let i = 0; i < 12; i++) {
+        const petal = document.createElement("span");
+        petal.className = "floating-petal";
+
+        petal.style.left = (5 + Math.random() * 90) + "%";
+        petal.style.setProperty("--drift", (Math.random() * 140 - 70) + "px");
+        petal.style.setProperty("--fall-duration", (12 + Math.random() * 12) + "s");
+        petal.style.setProperty("--fall-delay", (-Math.random() * 24) + "s");
+
+        const size = 8 + Math.random() * 7;
+        petal.style.width = size + "px";
+        petal.style.height = (size * 1.6) + "px";
+
+        layer.appendChild(petal);
+    }
+});
+
+
 </script>
 
 </body>
 </html>
-
-                      
