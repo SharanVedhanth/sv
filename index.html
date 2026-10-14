@@ -31,12 +31,18 @@ html, body {
 
 /* HOME */
 
+
 .home-background {
     position: absolute;
     inset: 0;
-    background: #242020 url("background/homeBG.jpg") center / cover no-repeat;
+    background-color: #050817;
+    background-image: url("background/homeBG.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
     z-index: 0;
 }
+
 
 .home-overlay {
     position: absolute;
@@ -44,6 +50,7 @@ html, body {
     background: rgba(0,0,0,.18);
     z-index: 1;
 }
+
 
 /* Birthday heading */
 
@@ -1190,9 +1197,14 @@ html, body {
 
 <!-- HOME -->
 
+
 <section id="home" class="page active">
     <div class="home-background"></div>
     <div class="home-overlay"></div>
+    <div class="home-galaxy" id="homeGalaxy" aria-hidden="true">
+    <div class="home-moon"></div>
+</div>
+
 
     <div class="home-heading">
         <div class="birthday-small">HAPPY BIRTHDAY</div>
@@ -1484,6 +1496,63 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
         field.appendChild(star);
     }
 })();
+
+
+/* Create the homepage galaxy */
+(function createHomeGalaxy() {
+    const field = document.getElementById("homeGalaxy");
+
+    if (!field) return;
+
+    const starColours = [
+        "#ffffff",
+        "#dce7ff",
+        "#c9d7ff",
+        "#fff0d2"
+    ];
+
+    // Dense star field with varied brightness and size.
+    for (let i = 0; i < 190; i++) {
+        const star = document.createElement("span");
+        star.className = "home-galaxy-star";
+
+        const size = Math.random() < 0.10
+            ? 3 + Math.random() * 2
+            : 0.8 + Math.random() * 1.8;
+
+        const colour =
+            starColours[Math.floor(Math.random() * starColours.length)];
+
+        star.style.left = Math.random() * 100 + "%";
+        star.style.top = Math.random() * 100 + "%";
+
+        star.style.setProperty("--home-star-size", size + "px");
+        star.style.setProperty("--home-star-colour", colour);
+        star.style.setProperty(
+            "--home-star-opacity",
+            0.45 + Math.random() * 0.55
+        );
+        star.style.setProperty(
+            "--home-star-speed",
+            (1.5 + Math.random() * 4) + "s"
+        );
+        star.style.setProperty(
+            "--home-star-delay",
+            (-Math.random() * 5) + "s"
+        );
+
+        if (Math.random() < 0.35) {
+            star.classList.add("bright-star");
+        }
+
+        if (Math.random() < 0.045) {
+            star.classList.add("sparkle-star");
+        }
+
+        field.appendChild(star);
+    }
+})();
+
 
 
 
