@@ -52,6 +52,146 @@ html, body {
 }
 
 
+
+/* HOMEPAGE STAR LAYER */
+.home-galaxy {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.home-galaxy-star {
+    position: absolute;
+    width: var(--home-star-size, 2px);
+    height: var(--home-star-size, 2px);
+    border-radius: 50%;
+    background: var(--home-star-colour, #ffffff);
+    opacity: var(--home-star-opacity, 0.8);
+    box-shadow: 0 0 5px var(--home-star-colour, #ffffff);
+    animation: homeStarTwinkle var(--home-star-speed, 3s) ease-in-out infinite;
+    animation-delay: var(--home-star-delay, 0s);
+}
+
+@keyframes homeStarTwinkle {
+    0%, 100% {
+        opacity: 0.25;
+        transform: scale(0.75);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.25);
+    }
+}
+
+/* ORDINARY SHOOTING STARS */
+.home-shooting-star {
+    position: absolute;
+    width: 130px;
+    height: 2px;
+    border-radius: 50%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(190, 215, 255, 0.65),
+        #ffffff
+    );
+    box-shadow: 0 0 8px rgba(190, 215, 255, 0.7);
+    opacity: 0;
+    transform: rotate(-35deg);
+    animation: homeShootingStar 1.4s ease-out forwards;
+}
+
+@keyframes homeShootingStar {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(-35deg);
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-260px, 180px) rotate(-35deg);
+    }
+}
+
+/* SPECIAL CLICKABLE SHOOTING STAR */
+.home-special-star {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        #ffffff 0%,
+        #fff4bd 25%,
+        rgba(255, 210, 100, 0.35) 55%,
+        transparent 75%
+    );
+    box-shadow: 0 0 12px 4px rgba(255, 221, 130, 0.65);
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 5;
+    animation: homeSpecialGlow 1.4s ease-in-out infinite alternate;
+}
+
+.home-special-star::before {
+    content: "";
+    position: absolute;
+    width: 95px;
+    height: 2px;
+    right: 8px;
+    top: 8px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 220, 140, 0.7),
+        #fff8dc
+    );
+    transform: rotate(-25deg);
+    transform-origin: right center;
+    pointer-events: none;
+}
+
+@keyframes homeSpecialGlow {
+    from {
+        filter: brightness(0.8);
+        transform: scale(0.85);
+    }
+    to {
+        filter: brightness(1.5);
+        transform: scale(1.15);
+    }
+}
+
+/* GOLDEN CATCH BURST */
+.home-star-burst {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffe8a3;
+    box-shadow: 0 0 12px 4px rgba(255, 206, 92, 0.8);
+    pointer-events: none;
+    animation: homeGoldenBurst 700ms ease-out forwards;
+}
+
+@keyframes homeGoldenBurst {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--burst-x), var(--burst-y)) scale(0.15);
+    }
+}
+
+
 /* Birthday heading */
 
 .home-heading {
@@ -1200,10 +1340,8 @@ html, body {
 
 <section id="home" class="page active">
     <div class="home-background"></div>
-    <div class="home-overlay"></div>
-    <div class="home-galaxy" id="homeGalaxy" aria-hidden="true">
-    <div class="home-moon"></div>
-</div>
+    <div class="home-overlay"></div>    
+    <div class="home-galaxy" id="homeGalaxy" aria-hidden="true"></div>
 
 
     <div class="home-heading">
@@ -1498,11 +1636,14 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
 })();
 
 
-/* Create the homepage galaxy */
+
+/* HOMEPAGE STARS AND SHOOTING STARS */
 (function createHomeGalaxy() {
     const field = document.getElementById("homeGalaxy");
+    if (!field || field.dataset.initialized === "true") return;
 
-    if (!field) return;
+    field.dataset.initialized = "true";
+    field.removeAttribute("aria-hidden");
 
     const starColours = [
         "#ffffff",
@@ -1511,46 +1652,172 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
         "#fff0d2"
     ];
 
-    // Dense star field with varied brightness and size.
-    for (let i = 0; i < 190; i++) {
+    // Create the tiny twinkling stars.
+    for (let i = 0; i < 150; i++) {
         const star = document.createElement("span");
         star.className = "home-galaxy-star";
 
-        const size = Math.random() < 0.10
-            ? 3 + Math.random() * 2
-            : 0.8 + Math.random() * 1.8;
-
-        const colour =
-            starColours[Math.floor(Math.random() * starColours.length)];
+        const size = Math.random() < 0.08
+            ? 2 + Math.random() * 1.5
+            : 0.7 + Math.random() * 1.1;
 
         star.style.left = Math.random() * 100 + "%";
         star.style.top = Math.random() * 100 + "%";
-
         star.style.setProperty("--home-star-size", size + "px");
-        star.style.setProperty("--home-star-colour", colour);
+        star.style.setProperty(
+            "--home-star-colour",
+            starColours[Math.floor(Math.random() * starColours.length)]
+        );
         star.style.setProperty(
             "--home-star-opacity",
-            0.45 + Math.random() * 0.55
+            0.4 + Math.random() * 0.6
         );
         star.style.setProperty(
             "--home-star-speed",
-            (1.5 + Math.random() * 4) + "s"
+            2 + Math.random() * 4 + "s"
         );
         star.style.setProperty(
             "--home-star-delay",
-            (-Math.random() * 5) + "s"
+            -Math.random() * 5 + "s"
         );
-
-        if (Math.random() < 0.35) {
-            star.classList.add("bright-star");
-        }
-
-        if (Math.random() < 0.045) {
-            star.classList.add("sparkle-star");
-        }
 
         field.appendChild(star);
     }
+
+    // Send an ordinary shooting star across the sky.
+    function createShootingStar() {
+        if (!document.getElementById("homeGalaxy")) return;
+
+        const shootingStar = document.createElement("span");
+        shootingStar.className = "home-shooting-star";
+        shootingStar.style.left = 65 + Math.random() * 35 + "%";
+        shootingStar.style.top = Math.random() * 45 + "%";
+
+        field.appendChild(shootingStar);
+
+        setTimeout(() => shootingStar.remove(), 1600);
+    }
+
+    function scheduleShootingStar() {
+        setTimeout(() => {
+            createShootingStar();
+            scheduleShootingStar();
+        }, 3500 + Math.random() * 5000);
+    }
+
+    scheduleShootingStar();
+
+    // Messages shown when the special star is caught.
+    const starMessages = [
+        "You make my world brighter. ✨",
+        "If I could wish for anything, it would still be you. 💛",
+        "Out of all the stars, you're my favourite. 🌟",
+        "Somehow, you make ordinary days feel magical. 💫",
+        "This little star came all this way just for you. 💖"
+    ];
+
+    let specialStarTimer;
+    let specialStarActive = false;
+
+    function showSpecialStar() {
+        if (specialStarActive) return;
+
+        specialStarActive = true;
+
+        const star = document.createElement("button");
+        star.className = "home-special-star";
+        star.type = "button";
+        star.setAttribute("aria-label", "Catch this special shooting star!");
+        star.title = "Catch me!";
+
+        star.style.left = 12 + Math.random() * 76 + "%";
+        star.style.top = 15 + Math.random() * 60 + "%";
+
+        field.appendChild(star);
+
+        const disappearTimer = setTimeout(() => {
+            star.remove();
+            specialStarActive = false;
+            scheduleSpecialStar();
+        }, 6500);
+
+        star.addEventListener("click", () => {
+            clearTimeout(disappearTimer);
+            star.remove();
+            specialStarActive = false;
+
+            // Create the golden particle burst.
+            const rect = star.getBoundingClientRect();
+            const fieldRect = field.getBoundingClientRect();
+
+            const burstX = rect.left - fieldRect.left + rect.width / 2;
+            const burstY = rect.top - fieldRect.top + rect.height / 2;
+
+            for (let i = 0; i < 22; i++) {
+                const particle = document.createElement("span");
+                particle.className = "home-star-burst";
+                particle.style.left = burstX + "px";
+                particle.style.top = burstY + "px";
+
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 35 + Math.random() * 100;
+
+                particle.style.setProperty(
+                    "--burst-x",
+                    Math.cos(angle) * distance + "px"
+                );
+                particle.style.setProperty(
+                    "--burst-y",
+                    Math.sin(angle) * distance + "px"
+                );
+
+                field.appendChild(particle);
+                setTimeout(() => particle.remove(), 800);
+            }
+
+            // Display a message.
+            const message = document.createElement("div");
+            message.textContent =
+                starMessages[Math.floor(Math.random() * starMessages.length)];
+
+            Object.assign(message.style, {
+                position: "fixed",
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)",
+                width: "min(82vw, 380px)",
+                padding: "22px 26px",
+                background: "rgba(9, 13, 35, 0.94)",
+                color: "#fff1c9",
+                border: "1px solid rgba(255, 220, 145, 0.8)",
+                borderRadius: "18px",
+                boxShadow: "0 0 35px rgba(255, 207, 105, 0.3)",
+                textAlign: "center",
+                fontSize: "18px",
+                lineHeight: "1.6",
+                zIndex: "9999",
+                fontFamily: "inherit"
+            });
+
+            message.setAttribute("role", "status");
+            document.body.appendChild(message);
+
+            setTimeout(() => message.remove(), 3500);
+
+            scheduleSpecialStar();
+        });
+    }
+
+    function scheduleSpecialStar() {
+        clearTimeout(specialStarTimer);
+
+        specialStarTimer = setTimeout(() => {
+            showSpecialStar();
+        }, 10000 + Math.random() * 10000);
+    }
+
+    // Let the page settle before the first special star appears.
+    scheduleSpecialStar();
 })();
 
 
