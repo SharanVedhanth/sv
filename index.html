@@ -1523,7 +1523,8 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
     }
 })();
 
-/* SHOOTING STARS — 20 RANDOMLY TIMED STARS EVERY 5 SECONDS */
+
+/* SHOOTING STARS — RANDOM STARS + OCCASIONAL METEOR BURSTS */
 
 (function startShootingStars() {
     const field = document.getElementById("surpriseStars");
@@ -1532,54 +1533,66 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
     if (!field || !screen) return;
 
     const directions = [
-        { x:  1, y:  0 },  // Left to right
-        { x: -1, y:  0 },  // Right to left
-        { x:  0, y:  1 },  // Top to bottom
-        { x:  0, y: -1 },  // Bottom to top
-        { x:  1, y: -1 },  // Bottom-left to top-right
-        { x: -1, y:  1 },  // Top-right to bottom-left
-        { x:  1, y:  1 },  // Top-left to bottom-right
-        { x: -1, y: -1 }   // Bottom-right to top-left
+        { x:  1, y:  0 },
+        { x: -1, y:  0 },
+        { x:  0, y:  1 },
+        { x:  0, y: -1 },
+        { x:  1, y: -1 },
+        { x: -1, y:  1 },
+        { x:  1, y:  1 },
+        { x: -1, y: -1 }
     ];
 
     let stopped = false;
     let cycleTimer;
 
-    function launchShootingStar() {
-        if (stopped || screen.classList.contains("leaving")) {
-            return;
-        }
+    function launchShootingStar(
+        direction = null,
+        burstIndex = 0,
+        burstCount = 1,
+        baseX = null,
+        baseY = null
+    ) {
+        if (stopped || screen.classList.contains("leaving")) return;
 
         const star = document.createElement("span");
         star.className = "shooting-star";
 
-        const direction =
+        const dir = direction ||
             directions[Math.floor(Math.random() * directions.length)];
 
         const width = window.innerWidth;
         const height = window.innerHeight;
-
-        // Vary the travel distance for a natural-looking sky.
         const distance = 0.25 + Math.random() * 0.3;
 
-        const travelX = direction.x * width * distance;
-        const travelY = direction.y * height * distance;
-
-        // Keep the streak's angle aligned with its travel direction.
+        const travelX = dir.x * width * distance;
+        const travelY = dir.y * height * distance;
         const angle = Math.atan2(travelY, travelX) * (180 / Math.PI);
 
-        star.style.left = Math.random() * width + "px";
-        star.style.top = Math.random() * height + "px";
+        let startX = baseX === null ? Math.random() * width : baseX;
+        let startY = baseY === null ? Math.random() * height : baseY;
+
+        // Spread burst stars side by side, perpendicular to their direction.
+        if (burstCount > 1) {
+            const length = Math.hypot(dir.x, dir.y) || 1;
+            const perpendicularX = -dir.y / length;
+            const perpendicularY = dir.x / length;
+            const offset = (burstIndex - (burstCount - 1) / 2) * 25;
+
+            startX += perpendicularX * offset;
+            startY += perpendicularY * offset;
+        }
+
+        star.style.left = startX + "px";
+        star.style.top = startY + "px";
 
         star.style.setProperty("--star-angle", angle + "deg");
         star.style.setProperty("--star-travel-x", travelX + "px");
         star.style.setProperty("--star-travel-y", travelY + "px");
-
         star.style.setProperty(
             "--star-length",
             (110 + Math.random() * 100) + "px"
         );
-
         star.style.setProperty(
             "--star-duration",
             (0.8 + Math.random() * 0.8) + "s"
@@ -1599,15 +1612,40 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
             return;
         }
 
-        // Exactly 20 stars per cycle, each with an independent launch time.
+        // Regular shooting stars: 20 randomly timed launches per cycle.
         for (let i = 0; i < 20; i++) {
-            const delay = Math.random() * 5000;
+            window.setTimeout(() => {
+                launchShootingStar();
+            }, Math.random() * 5000);
+        }
+
+        // Sometimes add a group of 4–5 stars travelling together.
+        if (Math.random() < 0.4) {
+            const burstDelay = Math.random() * 4500;
 
             window.setTimeout(() => {
-                if (!stopped && !screen.classList.contains("leaving")) {
-                    launchShootingStar();
+                if (stopped || screen.classList.contains("leaving")) return;
+
+                const direction =
+                    directions[Math.floor(Math.random() * directions.length)];
+
+                const count = 4 + Math.floor(Math.random() * 2);
+                const baseX = Math.random() * window.innerWidth;
+                const baseY = Math.random() * window.innerHeight;
+
+                for (let i = 0; i < count; i++) {
+                    // Tiny launch differences keep the burst natural.
+                    window.setTimeout(() => {
+                        launchShootingStar(
+                            direction,
+                            i,
+                            count,
+                            baseX,
+                            baseY
+                        );
+                    }, i * 100);
                 }
-            }, delay);
+            }, burstDelay);
         }
 
         cycleTimer = window.setTimeout(runFiveSecondCycle, 5000);
@@ -1615,7 +1653,6 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
 
     runFiveSecondCycle();
 
-    // Stop scheduling new stars when the welcome screen is dismissed.
     const stopObserver = new MutationObserver(() => {
         if (screen.classList.contains("leaving")) {
             stopped = true;
@@ -1629,6 +1666,7 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
         attributeFilter: ["class"]
     });
 })();
+
 
 /* Reveal the homepage with a celebration */
 function openSurprise() {
