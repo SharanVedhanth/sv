@@ -1637,6 +1637,7 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
 
 
 
+
 /* HOMEPAGE STAR SHOW */
 (function createHomeGalaxy() {
     const field = document.getElementById("homeGalaxy");
@@ -1661,19 +1662,25 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
         field.appendChild(star);
     }
 
+    // The seven personalised golden-star messages.
     const messages = [
-        "You make my world brighter. ✨",
-        "If I could wish for anything, it would still be you. 💛",
-        "Out of all the stars, you're my favourite. 🌟",
-        "You make ordinary days feel magical. 💫",
-        "This little star came all this way just for you. 💖"
+        "MAKE A WISH, MY BIRTHDAY GIRLLL!!!!!!!! 🌟",
+        "OUT OF ALL THE STARS, YOU'RE MY FAVOURITE ONE!!!!!!! ✨",
+        "IF I EVER SAW A SHOOTING STAR, I'D WISH FOR YOUUU!!!!!!! 💫",
+        "YOUR SOUL IS MORE BEAUTIFUL THAN ANY OF THESE STARS. 💛",
+        "YOU ARE THE PRETTIEST SHOOTING STAR. 🌠",
+        "MAKE SURE YOU ENJOY YOUR DAY!! 💖\n\nONCE AGAIN, HAPPY BIRTHDAY, MY LOVEEE!!!\n\nI HOPE WE'LL BE TOGETHER TO CELEBRATE YOUR BIRTHDAY — THIS ONE AND MANY, MANY MORE TO COME. 🥹💗",
+        "THIS IS OUR FIRST B'DAY TOGETHER!! 🥹💗\n\nI HOPE I CAN MAKE YOU HAPPYYY AND PUT A SMILE ON YOUR FACE!!\n\nYOUR VEDHU LOVES YOUU SMMM!!!!!!!!!!! ❤️‍🩹💖"
     ];
 
-    // Messages stay in the pool until caught; missed stars return later.
-    let messagePool = [...messages];
+    // Each message is assigned to one star at a time.
+    const availableMessages = messages.map((_, index) => index);
+    const activeMessages = new Set();
+    const completedMessages = new Set();
+
     let goldenActive = 0;
+    let goldenStopped = false;
     let stopped = false;
-    let bonusCaught = false;
 
     function showMessage(text) {
         const message = document.createElement("div");
@@ -1685,22 +1692,25 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
             top: "50%",
             transform: "translate(-50%, -50%)",
             width: "min(82vw, 380px)",
+            maxHeight: "75vh",
+            overflowY: "auto",
+            whiteSpace: "pre-line",
             padding: "22px 26px",
-            background: "rgba(9, 13, 35, 0.96)",
+            background: "rgba(9, 13, 35, 0.97)",
             color: "#fff1c9",
             border: "1px solid rgba(255, 220, 145, 0.8)",
             borderRadius: "18px",
             boxShadow: "0 0 35px rgba(255, 207, 105, 0.35)",
             textAlign: "center",
             fontSize: "18px",
-            lineHeight: "1.6",
+            lineHeight: "1.7",
             zIndex: "99999",
             fontFamily: "inherit"
         });
 
         message.setAttribute("role", "status");
         document.body.appendChild(message);
-        setTimeout(() => message.remove(), 3500);
+        setTimeout(() => message.remove(), 6000);
     }
 
     function makeBurst(x, y) {
@@ -1721,10 +1731,15 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
         }
     }
 
-    function launchShootingStar(golden = false, bonus = false) {
+    function launchShootingStar(golden = false) {
         if (stopped || !field.isConnected) return;
 
+        // Stop golden stars when all seven messages have been read.
+        if (golden && (goldenStopped || availableMessages.length === 0)) return;
+
+        const messageIndex = golden ? availableMessages.shift() : null;
         const star = document.createElement(golden ? "button" : "span");
+
         star.className = "home-shooting-star" + (golden ? " golden" : "");
 
         if (golden) {
@@ -1732,6 +1747,7 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
             star.setAttribute("aria-label", "Catch the golden shooting star");
             star.title = "Catch me!";
             goldenActive++;
+            activeMessages.add(messageIndex);
         }
 
         // Random entry point and direction.
@@ -1771,7 +1787,7 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
 
         if (golden) {
             star.addEventListener("click", () => {
-                if (caught) return;
+                if (caught || goldenStopped) return;
                 caught = true;
 
                 const rect = star.getBoundingClientRect();
@@ -1784,60 +1800,69 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
 
                 star.remove();
                 goldenActive = Math.max(0, goldenActive - 1);
+                activeMessages.delete(messageIndex);
+                completedMessages.add(messageIndex);
 
-                if (bonus) {
-                    bonusCaught = true;
-                    showMessage("You found the rare star! 💛 You make this whole universe brighter.");
-                } else {
-                    // Deliver one message and remove it from the pool.
-                    // When all have been collected, start the collection again.
-                    if (messagePool.length === 0) messagePool = [...messages];
+                showMessage(messages[messageIndex]);
 
-                    const index = Math.floor(Math.random() * messagePool.length);
-                    const [message] = messagePool.splice(index, 1);
-                    showMessage(message);
+                // All seven unique messages have now been revealed.
+                if (completedMessages.size === messages.length) {
+                    goldenStopped = true;
+
+                    // Remove any other golden stars still travelling.
+                    field.querySelectorAll(".home-shooting-star.golden").forEach(
+                        existingStar => existingStar.remove()
+                    );
+
+                    goldenActive = 0;
+                    activeMessages.clear();
+                    availableMessages.length = 0;
                 }
             });
         }
 
         setTimeout(() => {
             if (star.isConnected) star.remove();
-            if (golden) goldenActive = Math.max(0, goldenActive - 1);
+
+            if (golden) {
+                goldenActive = Math.max(0, goldenActive - 1);
+                activeMessages.delete(messageIndex);
+
+                // If missed, return its unread message for another attempt.
+                if (!caught && !goldenStopped && !completedMessages.has(messageIndex)) {
+                    availableMessages.push(messageIndex);
+                }
+            }
         }, duration * 1000 + 150);
     }
 
-    // More frequent normal stars, with several potentially visible at once.
+    // Frequent ordinary shooting stars continue even after golden stars stop.
     function scheduleNormalStar() {
         if (stopped) return;
+
         launchShootingStar(false);
         setTimeout(scheduleNormalStar, 220 + Math.random() * 300);
     }
 
-    // First golden star arrives quickly; after that, one every ~5 seconds.
-    function scheduleGoldenStar() {
-        if (stopped) return;
+    // First golden star quickly, then new opportunities about every 4–5 seconds.
+    function scheduleGoldenStar(first = false) {
+        if (stopped || goldenStopped) return;
 
         setTimeout(() => {
-            if (stopped) return;
+            if (stopped || goldenStopped) return;
 
-            if (goldenActive < 2) {
-                launchShootingStar(true, false);
+            if (availableMessages.length > 0 && goldenActive < 2) {
+                launchShootingStar(true);
             }
 
-            scheduleGoldenStar();
-        }, goldenActive === 0 ? 1800 : 4000 + Math.random() * 1000);
+            scheduleGoldenStar(false);
+        }, first ? 1500 + Math.random() * 1000 : 4000 + Math.random() * 1000);
     }
 
-    // Rare bonus star after five minutes.
-    setTimeout(() => {
-        if (!stopped && !bonusCaught) {
-            launchShootingStar(true, true);
-        }
-    }, 5 * 60 * 1000);
-
     scheduleNormalStar();
-    scheduleGoldenStar();
+    scheduleGoldenStar(true);
 })();
+
 
 
 
