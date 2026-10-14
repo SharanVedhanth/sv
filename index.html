@@ -1636,6 +1636,7 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
 
 
 
+
 /* HOMEPAGE STAR SHOW */
 (function createHomeGalaxy() {
     const field = document.getElementById("homeGalaxy");
@@ -1650,30 +1651,13 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
     for (let i = 0; i < 150; i++) {
         const star = document.createElement("span");
         star.className = "home-galaxy-star";
-
         star.style.left = Math.random() * 100 + "%";
         star.style.top = Math.random() * 100 + "%";
-        star.style.setProperty(
-            "--home-star-size",
-            (0.7 + Math.random() * 1.5) + "px"
-        );
-        star.style.setProperty(
-            "--home-star-colour",
-            starColours[Math.floor(Math.random() * starColours.length)]
-        );
-        star.style.setProperty(
-            "--home-star-opacity",
-            0.4 + Math.random() * 0.6
-        );
-        star.style.setProperty(
-            "--home-star-speed",
-            (2 + Math.random() * 4) + "s"
-        );
-        star.style.setProperty(
-            "--home-star-delay",
-            (-Math.random() * 5) + "s"
-        );
-
+        star.style.setProperty("--home-star-size", (0.7 + Math.random() * 1.5) + "px");
+        star.style.setProperty("--home-star-colour", starColours[Math.floor(Math.random() * starColours.length)]);
+        star.style.setProperty("--home-star-opacity", 0.4 + Math.random() * 0.6);
+        star.style.setProperty("--home-star-speed", (2 + Math.random() * 4) + "s");
+        star.style.setProperty("--home-star-delay", (-Math.random() * 5) + "s");
         field.appendChild(star);
     }
 
@@ -1685,11 +1669,11 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
         "This little star came all this way just for you. 💖"
     ];
 
-    let goldenCount = 0;
-    let bonusCaught = false;
-    let bonusTimer = null;
-    let showBonus = false;
+    // Messages stay in the pool until caught; missed stars return later.
+    let messagePool = [...messages];
+    let goldenActive = 0;
     let stopped = false;
+    let bonusCaught = false;
 
     function showMessage(text) {
         const message = document.createElement("div");
@@ -1702,15 +1686,15 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
             transform: "translate(-50%, -50%)",
             width: "min(82vw, 380px)",
             padding: "22px 26px",
-            background: "rgba(9, 13, 35, 0.95)",
+            background: "rgba(9, 13, 35, 0.96)",
             color: "#fff1c9",
             border: "1px solid rgba(255, 220, 145, 0.8)",
             borderRadius: "18px",
-            boxShadow: "0 0 35px rgba(255, 207, 105, 0.3)",
+            boxShadow: "0 0 35px rgba(255, 207, 105, 0.35)",
             textAlign: "center",
             fontSize: "18px",
             lineHeight: "1.6",
-            zIndex: "9999",
+            zIndex: "99999",
             fontFamily: "inherit"
         });
 
@@ -1720,23 +1704,17 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
     }
 
     function makeBurst(x, y) {
-        for (let i = 0; i < 22; i++) {
+        for (let i = 0; i < 26; i++) {
             const particle = document.createElement("span");
             particle.className = "home-star-burst";
             particle.style.left = x + "px";
             particle.style.top = y + "px";
 
             const angle = Math.random() * Math.PI * 2;
-            const distance = 35 + Math.random() * 100;
+            const distance = 40 + Math.random() * 110;
 
-            particle.style.setProperty(
-                "--burst-x",
-                Math.cos(angle) * distance + "px"
-            );
-            particle.style.setProperty(
-                "--burst-y",
-                Math.sin(angle) * distance + "px"
-            );
+            particle.style.setProperty("--burst-x", Math.cos(angle) * distance + "px");
+            particle.style.setProperty("--burst-y", Math.sin(angle) * distance + "px");
 
             field.appendChild(particle);
             setTimeout(() => particle.remove(), 800);
@@ -1746,51 +1724,45 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
     function launchShootingStar(golden = false, bonus = false) {
         if (stopped || !field.isConnected) return;
 
-        // A button for golden stars, a decorative span for ordinary ones.
         const star = document.createElement(golden ? "button" : "span");
         star.className = "home-shooting-star" + (golden ? " golden" : "");
 
         if (golden) {
             star.type = "button";
-            star.setAttribute(
-                "aria-label",
-                bonus ? "Catch the rare special golden star!" : "Catch the golden shooting star!"
-            );
+            star.setAttribute("aria-label", "Catch the golden shooting star");
             star.title = "Catch me!";
+            goldenActive++;
         }
 
-        // Launch from a random edge, travelling in a random direction.
+        // Random entry point and direction.
         const side = Math.floor(Math.random() * 4);
         let startX, startY;
 
         if (side === 0) {
             startX = Math.random() * 100;
-            startY = -8;
+            startY = -5;
         } else if (side === 1) {
-            startX = 108;
+            startX = 105;
             startY = Math.random() * 100;
         } else if (side === 2) {
             startX = Math.random() * 100;
-            startY = 108;
+            startY = 105;
         } else {
-            startX = -8;
+            startX = -5;
             startY = Math.random() * 100;
         }
 
         const angle = Math.random() * Math.PI * 2;
-        const distance = 240 + Math.random() * 300;
+        const distance = 280 + Math.random() * 350;
         const dx = Math.cos(angle) * distance;
         const dy = Math.sin(angle) * distance;
-        const duration = 1.5 + Math.random() * 1.2;
+        const duration = 1.8 + Math.random() * 1.2;
 
         star.style.left = startX + "%";
         star.style.top = startY + "%";
         star.style.setProperty("--shoot-x", dx + "px");
         star.style.setProperty("--shoot-y", dy + "px");
-        star.style.setProperty(
-            "--shoot-angle",
-            (angle * 180 / Math.PI) + "deg"
-        );
+        star.style.setProperty("--shoot-angle", (angle * 180 / Math.PI) + "deg");
         star.style.setProperty("--shoot-duration", duration + "s");
 
         field.appendChild(star);
@@ -1811,64 +1783,62 @@ YOUR HUBBY LOVESS YOUU🤭💋.</p>
                 );
 
                 star.remove();
+                goldenActive = Math.max(0, goldenActive - 1);
 
                 if (bonus) {
                     bonusCaught = true;
-                    showMessage(
-                        "You found the rare star! 💛 Every star in this sky has a little wish for you."
-                    );
+                    showMessage("You found the rare star! 💛 You make this whole universe brighter.");
                 } else {
-                    goldenCount++;
-                    const message =
-                        messages[Math.floor(Math.random() * messages.length)];
+                    // Deliver one message and remove it from the pool.
+                    // When all have been collected, start the collection again.
+                    if (messagePool.length === 0) messagePool = [...messages];
 
+                    const index = Math.floor(Math.random() * messagePool.length);
+                    const [message] = messagePool.splice(index, 1);
                     showMessage(message);
-
-                    // A rare bonus is scheduled five minutes after the page starts.
-                    // Catching it unlocks the extra-special surprise.
                 }
             });
         }
 
-        setTimeout(() => star.remove(), duration * 1000 + 100);
+        setTimeout(() => {
+            if (star.isConnected) star.remove();
+            if (golden) goldenActive = Math.max(0, goldenActive - 1);
+        }, duration * 1000 + 150);
     }
 
-    // A continuous stream of ordinary shooting stars.
+    // More frequent normal stars, with several potentially visible at once.
     function scheduleNormalStar() {
         if (stopped) return;
-
         launchShootingStar(false);
-
-        setTimeout(
-            scheduleNormalStar,
-            450 + Math.random() * 650
-        );
+        setTimeout(scheduleNormalStar, 220 + Math.random() * 300);
     }
 
-    // Golden stars travel through the same stream, rather than sitting still.
+    // First golden star arrives quickly; after that, one every ~5 seconds.
     function scheduleGoldenStar() {
         if (stopped) return;
 
         setTimeout(() => {
             if (stopped) return;
 
-            launchShootingStar(true, false);
+            if (goldenActive < 2) {
+                launchShootingStar(true, false);
+            }
+
             scheduleGoldenStar();
-        }, 18000 + Math.random() * 12000);
+        }, goldenActive === 0 ? 1800 : 4000 + Math.random() * 1000);
     }
 
-    // One rare bonus star after five minutes.
-    // It is also a moving golden shooting star.
-    bonusTimer = setTimeout(() => {
-        if (stopped) return;
-
-        showBonus = true;
-        launchShootingStar(true, true);
+    // Rare bonus star after five minutes.
+    setTimeout(() => {
+        if (!stopped && !bonusCaught) {
+            launchShootingStar(true, true);
+        }
     }, 5 * 60 * 1000);
 
     scheduleNormalStar();
     scheduleGoldenStar();
 })();
+
 
 
 
