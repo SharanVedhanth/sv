@@ -763,6 +763,11 @@ html, body {
     pointer-events: none;
 }
 
+
+
+
+
+
 /* Smaller galaxy: sits over the card background */
 .words-card-star-field {
     position: absolute;
@@ -774,17 +779,21 @@ html, body {
 }
 
 /* Individual stars */
+
+
 .words-galaxy-star {
     position: absolute;
     display: block;
-    width: var(--word-star-size, 2px);
-    height: var(--word-star-size, 2px);
+    width: var(--word-star-size, 3px);
+    height: var(--word-star-size, 3px);
     border-radius: 50%;
-    background: #ffe8a6;
-    opacity: var(--word-star-opacity, 0.5);
+
+    background: #fffdf5;
+    opacity: var(--word-star-opacity, 0.9);
+
     box-shadow:
-        0 0 4px 1px rgba(255, 221, 145, 0.28),
-        0 0 9px 1px rgba(255, 207, 115, 0.12);
+        0 0 2px rgba(255, 255, 240, 0.9),
+        0 0 4px rgba(255, 224, 145, 0.35);
 
     animation:
         wordsStarTwinkle
@@ -793,6 +802,8 @@ html, body {
         var(--word-star-delay, 0s)
         infinite alternate;
 }
+
+
 
 @keyframes wordsStarTwinkle {
     0% {
@@ -805,6 +816,31 @@ html, body {
         transform: scale(1.35);
     }
 }
+
+.words-galaxy-star.side-star {
+    pointer-events: none;
+}
+
+/* GENTLE TWINKLING STARS BESIDE THE LETTER */
+.words-side-star {
+    position: absolute;
+    z-index: 2;
+    color: #ffe8a6;
+    font-size: 17px;
+    line-height: 1;
+    pointer-events: none;
+    text-shadow: 0 0 8px rgba(255, 221, 145, 0.7);
+    animation: wordsStarTwinkle 2.8s ease-in-out infinite alternate;
+}
+
+.words-side-star.left {
+    left: 3%;
+}
+
+.words-side-star.right {
+    right: 3%;
+}
+
 
 /* Keep text above the stars */
 .words-heading,
@@ -2308,6 +2344,59 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+
+function createWordsSideStars() {
+    const field = document.querySelector('#words .words-star-field');
+    if (!field || field.dataset.starsCreated === 'true') return;
+
+    field.dataset.starsCreated = 'true';
+
+    const totalStars = 55;
+
+    for (let i = 0; i < totalStars; i++) {
+        const star = document.createElement('span');
+        star.className = 'words-galaxy-star side-star';
+
+        const isLeft = Math.random() < 0.5;
+
+        // Keep stars scattered along the outer sides of the letter.
+        star.style.left = isLeft
+            ? `${Math.random() * 16 + 1}%`
+            : `${Math.random() * 16 + 83}%`;
+
+        star.style.top = `${Math.random() * 94 + 3}%`;
+
+        // Different sizes, brightness, speeds and animation delays.
+        star.style.setProperty(
+            '--word-star-size',
+            `${Math.random() * 2.5 + 2}px`
+        );
+
+        star.style.setProperty(
+            '--word-star-opacity',
+            `${Math.random() * 0.5 + 0.4}`
+        );
+
+        star.style.setProperty(
+            '--word-star-dim',
+            `${Math.random() * 0.2 + 0.05}`
+        );
+
+        star.style.setProperty(
+            '--word-star-speed',
+            `${Math.random() * 2.5 + 1.5}s`
+        );
+
+        star.style.setProperty(
+            '--word-star-delay',
+            `${-Math.random() * 5}s`
+        );
+
+        field.appendChild(star);
+    }
+}
+
+createWordsSideStars();
 
 </script>
 
